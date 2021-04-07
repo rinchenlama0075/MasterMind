@@ -68,9 +68,10 @@ class Baseline1(Player):
         Returns:
             str: Returns guess
         """
-        print("Call made")
+        if last_response[2] == 0:
+            self.all_possibilities = []
+            self.current_guess = -1
         self.next_guess(board_length, colors)
-        print("Guess made: " + self.all_possibilities[self.current_guess])
         return self.all_possibilities[self.current_guess]
 
 def main():
