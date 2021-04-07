@@ -30,7 +30,7 @@ class Player:
 
         raise NotImplementedError
 
-class Baseline1(Player):
+class B1Player(Player):
     """Baseline 1 mastermind player
     B1: Exhaustively enumerate all possibilities. Guess each possibility in lexicographic 
     order one at a time, and pay no attention to the system’s responses. For example, if 
@@ -95,7 +95,7 @@ def main():
         player = Boring()
 
     elif player_name == "Baseline1":
-        player = Baseline1()
+        player = B1Player()
 
     else:
 
