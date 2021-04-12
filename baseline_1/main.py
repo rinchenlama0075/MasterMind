@@ -5,7 +5,7 @@ import sys
 from scsa import *
 from player import *
 from mastermind import *
-from fbi_B1 import B1Player
+from fbi_B1 import Baseline1
 
 def main():
     if len(sys.argv) != 6:
@@ -28,7 +28,7 @@ def main():
         player = Boring()
 
     elif player_name == "Baseline1":
-        player = B1Player()
+        player = Baseline1()
 
     else:
 

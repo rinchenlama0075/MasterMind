@@ -1,7 +1,9 @@
+# FBI Team members: Michelle, Rinchen, Chen
+
 from itertools import product
 from player import Player
 
-class B1Player(Player):
+class Baseline1(Player):
     """Baseline 1 mastermind player
     B1: Exhaustively enumerate all possibilities. Guess each possibility in lexicographic 
     order one at a time, and pay no attention to the system’s responses. For example, if 
