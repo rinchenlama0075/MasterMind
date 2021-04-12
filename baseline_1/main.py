@@ -5,13 +5,9 @@ import sys
 from scsa import *
 from player import *
 from mastermind import *
-<<<<<<< HEAD
 from fbi_B1 import Baseline1
-=======
-from fbi_B1 import B1Player
 from fbi_B2 import Baseline2
 
->>>>>>> 9fa3633f673ebbf947132cd4da683020dd2c275f
 
 def main():
     if len(sys.argv) != 6:
