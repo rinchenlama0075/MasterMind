@@ -6,6 +6,8 @@ from scsa import *
 from player import *
 from mastermind import *
 from fbi_B1 import B1Player
+from fbi_B2 import Baseline2
+
 
 def main():
     if len(sys.argv) != 6:
@@ -18,7 +20,6 @@ def main():
     scsa_name = sys.argv[4]
     num_rounds = int(sys.argv[5])
 
-
     if player_name == "RandomFolks":
 
         player = RandomFolks()
@@ -30,11 +31,13 @@ def main():
     elif player_name == "Baseline1":
         player = B1Player()
 
+    elif player_name == "Baseline2":
+        player = Baseline2()
+
     else:
 
         print("Unrecognized player.")
         sys.exit(1)
-
 
     if scsa_name == "InsertColors":
 
@@ -73,11 +76,12 @@ def main():
         print("Unrecognized SCSA.")
         sys.exit(1)
 
-    colors = [chr(i) for i in range(65,91)][:num_colors]
+    colors = [chr(i) for i in range(65, 91)][:num_colors]
 
     mastermind = Mastermind(board_length, colors)
 
     mastermind.play_tournament(player, scsa, num_rounds)
+
 
 if __name__ == "__main__":
     main()

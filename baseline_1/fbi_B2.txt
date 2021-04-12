@@ -1,0 +1,15 @@
+Against TwoColor:
+
+Player: baseline_B2_fbi
+Game: 5 Pegs 7 Colors
+Rounds: 100 out of 100
+Results: {'win': 23, 'loss': 77, 'failure': 0}
+Score: 115
+
+Against UsuallyFewer:
+
+Player: baseline_B2_fbi
+Game: 5 Pegs 7 Colors
+Rounds: 100 out of 100
+Results: {'win': 22, 'loss': 78, 'failure': 0}
+Score: 110
