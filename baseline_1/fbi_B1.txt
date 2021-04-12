@@ -1,0 +1,15 @@
+Against TwoColor:
+
+Player: Baseline1
+Game: 4 Pegs 6 Colors
+Rounds: 100 out of 100
+Results: {'win': 13, 'loss': 87, 'failure': 0}
+Score: 65
+
+Against UsuallyFewer:
+
+Player: Baseline1
+Game: 4 Pegs 6 Colors
+Rounds: 100 out of 100
+Results: {'win': 7, 'loss': 93, 'failure': 0}
+Score: 35
