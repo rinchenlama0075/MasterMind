@@ -11,12 +11,6 @@ class B4Player(Player):
         self.inferences = {}
         self.last_guess = None
 
-    def init_inferences(self, board_length, colors):
-        for color in colors:
-            self.inferences[color] = list(range(board_length))
-        self.last_guess = None
-        print(self.inferences)
-
     def make_guess(self, board_length, colors, scsa, last_response):
         """Makes a guess of the secret code for Mastermind
 
@@ -32,8 +26,8 @@ class B4Player(Player):
             str: Returns guess
         """
         if last_response[2] == 0:
-            self.init_inferences(board_length, colors)
-            return colors[0] * board_length
+            # if a new round has begun
+            return
             
         while(last_response[0]  < board_length): # While (bull < N) and (not gameover) 
 
