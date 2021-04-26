@@ -63,4 +63,44 @@ Rounds: 100 out of 100
 Results: {'win': 63, 'loss': 37, 'failure': 0}
 Score: 315
 
+Against Mystery1:
+
+Player: baseline_B2_fbi
+Game: 7 Pegs 5 Colors
+Rounds: 200 out of 200
+Results: {'win': 101, 'loss': 99, 'failure': 0}
+Score: 505
+
+Against Mystery2:
+
+Player: baseline_B2_fbi
+Game: 7 Pegs 5 Colors
+Rounds: 200 out of 200
+Results: {'win': 0, 'loss': 200, 'failure': 0}
+Score: 0
+
+Against Mystery3:
+
+Player: baseline_B2_fbi
+Game: 7 Pegs 5 Colors
+Rounds: 200 out of 200
+Results: {'win': 1, 'loss': 199, 'failure': 0}
+Score: 5
+
+Against Mystery4:
+
+Player: baseline_B2_fbi
+Game: 7 Pegs 5 Colors
+Rounds: 200 out of 200
+Results: {'win': 1, 'loss': 199, 'failure': 0}
+Score: 
+
+
+Against Mystery5:
+
+Player: baseline_B2_fbi
+Game: 7 Pegs 5 Colors
+Rounds: 200 out of 200
+Results: {'win': 23, 'loss': 177, 'failure': 0}
+Score: 115
 

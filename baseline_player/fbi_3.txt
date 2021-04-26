@@ -61,3 +61,46 @@ Game: 5 Pegs 7 Colors
 Rounds: 100 out of 100
 Results: {'win': 100, 'loss': 0, 'failure': 0}
 Score: 500
+
+
+Against Mystery1:
+
+Player: BaselinePlayer
+Game: 7 Pegs 5 Colors
+Rounds: 200 out of 200
+Results: {'win': 184, 'loss': 16, 'failure': 0}
+Score: 920
+
+Against Mystery2:
+
+Player: BaselinePlayer
+Game: 7 Pegs 5 Colors
+Rounds: 200 out of 200
+Results: {'win': 81, 'loss': 119, 'failure': 0}
+Score: 405
+
+
+Against Mystery3:
+
+Player: BaselinePlayer
+Game: 7 Pegs 5 Colors
+Rounds: 200 out of 200
+Results: {'win': 88, 'loss': 112, 'failure': 0}
+Score: 440
+
+Against Mystery4:
+
+Player: BaselinePlayer
+Game: 7 Pegs 5 Colors
+Rounds: 200 out of 200
+Results: {'win': 99, 'loss': 101, 'failure': 0}
+Score: 495
+
+
+Against Mystery5:
+
+Player: BaselinePlayer
+Game: 7 Pegs 5 Colors
+Rounds: 200 out of 200
+Results: {'win': 200, 'loss': 0, 'failure': 0}
+Score: 1000
