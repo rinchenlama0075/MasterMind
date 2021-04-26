@@ -652,3 +652,24 @@ class PreferFewer(SCSA):
                 codes.append(code) 
                 
         return codes
+
+class Mystery1(SCSA):
+    def __init__(self):
+        self.name = "Mystery1"
+
+class Mystery2(SCSA):
+    def __init__(self):
+        self.name = "Mystery1"
+
+class Mystery3(SCSA):
+    def __init__(self):
+        self.name = "Mystery1"
+
+class Mystery4(SCSA):
+    def __init__(self):
+        self.name = "Mystery1"
+
+class Mystery5(SCSA):
+    def __init__(self):
+        self.name = "Mystery1"
+

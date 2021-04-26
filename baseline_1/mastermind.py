@@ -307,14 +307,15 @@ class Mastermind:
 
         codes = read_from_file(code_file)
 
-        num_rounds = len(codes)
+        num_rounds = 100
 
         results = {"win": 0, "loss": 0, "failure": 0}
 
         cur_round = 0
 
-        for code in codes:
-
+        for i in range(num_rounds):
+            
+            code = codes[i]
             cur_round += 1
 
             round = Round(self.board_length, self.colors, code, scsa, self.guess_cutoff, self.round_time_cutoff)

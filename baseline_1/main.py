@@ -6,7 +6,7 @@ from scsa import *
 from player import *
 from mastermind import *
 from fbi_B1 import Baseline1
-from fbi_B2 import Baseline2
+# from fbi_B2 import Baseline2
 
 
 def main():
@@ -31,56 +31,95 @@ def main():
     elif player_name == "Baseline1":
         player = Baseline1()
 
-    elif player_name == "Baseline2":
-        player = Baseline2()
+    # elif player_name == "Baseline2":
+    #     player = Baseline2()
 
     else:
 
         print("Unrecognized player.")
         sys.exit(1)
+        
+    if len(scsa_name) > 7 and scsa_name[:7] == "Mystery":
+        if scsa_name == "Mystery1":
 
-    if scsa_name == "InsertColors":
+            scsa = Mystery1()
+            code_file = "mystery_codes/200_codes_for_mystery1_7_5.txt"
 
-        scsa = InsertColors()
+        elif scsa_name == "Mystery2":
+            
+            scsa = Mystery2()
+            code_file = "mystery_codes/200_codes_for_mystery2_7_5.txt"
 
-    elif scsa_name == "TwoColor":
+        elif scsa_name == "Mystery3":
+            
+            scsa = Mystery3()
+            code_file = "mystery_codes/200_codes_for_mystery3_7_5.txt"
 
-        scsa = TwoColor()
+        elif scsa_name == "Mystery4":
+            
+            scsa = Mystery4()
+            code_file = "mystery_codes/200_codes_for_mystery4_7_5.txt"
 
-    elif scsa_name == "ABColor":
+        elif scsa_name == "Mystery5":
+            
+            scsa = Mystery5()
+            code_file = "mystery_codes/200_codes_for_mystery5_7_5.txt"
 
-        scsa = ABColor()
+        else:
 
-    elif scsa_name == "TwoColorAlternating":
+            print("Unrecognized SCSA.")
+            sys.exit(1)
+        
+        colors = [chr(i) for i in range(65, 91)][:num_colors]
 
-        scsa = TwoColorAlternating()
+        mastermind = Mastermind(board_length, colors)
 
-    elif scsa_name == "OnlyOnce":
-
-        scsa = OnlyOnce()
-
-    elif scsa_name == "FirstLast":
-
-        scsa = FirstLast()
-
-    elif scsa_name == "UsuallyFewer":
-
-        scsa = UsuallyFewer()
-
-    elif scsa_name == "PreferFewer":
-
-        scsa = PreferFewer()
+        mastermind.practice_tournament(player, scsa, code_file)
 
     else:
+        if scsa_name == "InsertColors":
 
-        print("Unrecognized SCSA.")
-        sys.exit(1)
+            scsa = InsertColors()
 
-    colors = [chr(i) for i in range(65, 91)][:num_colors]
+        elif scsa_name == "TwoColor":
 
-    mastermind = Mastermind(board_length, colors)
+            scsa = TwoColor()
 
-    mastermind.play_tournament(player, scsa, num_rounds)
+        elif scsa_name == "ABColor":
+
+            scsa = ABColor()
+
+        elif scsa_name == "TwoColorAlternating":
+
+            scsa = TwoColorAlternating()
+
+        elif scsa_name == "OnlyOnce":
+
+            scsa = OnlyOnce()
+
+        elif scsa_name == "FirstLast":
+
+            scsa = FirstLast()
+
+        elif scsa_name == "UsuallyFewer":
+
+            scsa = UsuallyFewer()
+
+        elif scsa_name == "PreferFewer":
+
+            scsa = PreferFewer()
+        
+        
+        else:
+
+            print("Unrecognized SCSA.")
+            sys.exit(1)
+
+        colors = [chr(i) for i in range(65, 91)][:num_colors]
+
+        mastermind = Mastermind(board_length, colors)
+
+        mastermind.play_tournament(player, scsa, num_rounds)
 
 
 if __name__ == "__main__":

@@ -54,7 +54,6 @@ Rounds: 100 out of 100
 Results: {'win': 2, 'loss': 98, 'failure': 0}
 Score: 10
 
-
 Against PreferFewer:
 
 Player: Baseline1
@@ -62,3 +61,43 @@ Game: 5 Pegs 7 Colors
 Rounds: 100 out of 100
 Results: {'win': 9, 'loss': 91, 'failure': 0}
 Score: 45
+
+Against Mystery1:
+
+Player: Baseline1
+Game: 7 Pegs 5 Colors
+Rounds: 100 out of 100
+Results: {'win': 13, 'loss': 87, 'failure': 0}
+Score: 65
+
+Against Mystery2:
+
+Player: Baseline1
+Game: 7 Pegs 5 Colors
+Rounds: 100 out of 100
+Results: {'win': 0, 'loss': 100, 'failure': 0}
+Score: 0
+
+Against Mystery3:
+
+Player: Baseline1
+Game: 7 Pegs 5 Colors
+Rounds: 100 out of 100
+Results: {'win': 0, 'loss': 100, 'failure': 0}
+Score: 0
+
+Against Mystery4:
+
+Player: Baseline1
+Game: 7 Pegs 5 Colors
+Rounds: 100 out of 100
+Results: {'win': 0, 'loss': 100, 'failure': 0}
+Score: 0
+
+Against Mystery5:
+
+Player: Baseline1
+Game: 7 Pegs 5 Colors
+Rounds: 100 out of 100
+Results: {'win': 0, 'loss': 100, 'failure': 0}
+Score: 0
