@@ -18,7 +18,7 @@ num_colors = int(sys.argv[2])
 player_name = sys.argv[3]
 scsa_name = sys.argv[4]
 num_rounds = int(sys.argv[5])
-6
+
 if player_name == "RandomFolks":
 
     player = RandomFolks()
