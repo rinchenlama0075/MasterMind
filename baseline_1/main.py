@@ -72,7 +72,6 @@ def main():
         scsa = PreferFewer()
 
     else:
-
         print("Unrecognized SCSA.")
         sys.exit(1)
 

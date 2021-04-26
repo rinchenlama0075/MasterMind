@@ -8,9 +8,9 @@ from mastermind import *
 from fbi_3 import BaselinePlayer
 
 if len(sys.argv) != 6:
-     
+
     print("Usage: python3 main.py <board length> <num colors> <player name> <scsa name> <num rounds>")
-     
+
     sys.exit(1)
 
 board_length = int(sys.argv[1])
@@ -68,12 +68,32 @@ elif scsa_name == "PreferFewer":
 
     scsa = PreferFewer()
 
+elif scsa_name == "mystery1":
+
+    scsa = mystery1()
+
+elif scsa_name == "mystery2":
+
+    scsa = mystery2()
+
+elif scsa_name == "mystery3":
+
+    scsa = mystery3()
+
+elif scsa_name == "mystery4":
+
+    scsa = mystery4()
+
+elif scsa_name == "mystery5":
+
+    scsa = mystery5()
+
 else:
 
     print("Unrecognized SCSA.")
     sys.exit(1)
 
-colors = [chr(i) for i in range(65,91)][:num_colors]
+colors = [chr(i) for i in range(65, 91)][:num_colors]
 
 mastermind = Mastermind(board_length, colors)
 

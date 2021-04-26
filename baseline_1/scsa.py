@@ -3,6 +3,7 @@
 
 import random
 
+
 def list_to_str(arr):
     """Converts a list of charaters to a string
 
@@ -14,6 +15,7 @@ def list_to_str(arr):
     """
 
     return "".join(arr)
+
 
 def read_from_file(file_name):
     """Reads codes from file
@@ -39,6 +41,7 @@ def read_from_file(file_name):
 
     return codes
 
+
 class SCSA:
     """Secret-code selection algorithm
     """
@@ -49,7 +52,7 @@ class SCSA:
 
         self.name = ""
 
-    def generate_codes(self, length, colors, num_codes = 1):
+    def generate_codes(self, length, colors, num_codes=1):
         """Generate codes based on secret-code selection algorithm
 
         Args:
@@ -72,7 +75,8 @@ class SCSA:
             num_colors (int): Number of colors that could be used to generate a code (i.e. length of list of colors).
         """
 
-        file_name = self.name + "_" + str(length) + "_" + str(num_colors) + ".txt"
+        file_name = self.name + "_" + \
+            str(length) + "_" + str(num_colors) + ".txt"
 
         file = open(file_name, "w")
 
@@ -84,7 +88,7 @@ class SCSA:
 
         return
 
-    def generate_and_write_to_file(self, length, colors, num_codes = 100):
+    def generate_and_write_to_file(self, length, colors, num_codes=100):
         """Generates codes and writes them to a file
 
         Args:
@@ -114,7 +118,7 @@ class InsertColors(SCSA):
 
         self.name = "InsertColors"
 
-    def generate_codes(self, length, colors, num_codes = 1):
+    def generate_codes(self, length, colors, num_codes=1):
         """Generate codes based on InsertColors SCSA
 
         Args:
@@ -132,7 +136,7 @@ class InsertColors(SCSA):
 
         if num_codes == 1:
 
-            codes = list_to_str(random.choices(colors, k = length))
+            codes = list_to_str(random.choices(colors, k=length))
 
         else:
 
@@ -140,8 +144,8 @@ class InsertColors(SCSA):
 
             for _ in range(num_codes):
 
-                codes.append(list_to_str(random.choices(colors, k = length))) 
-                
+                codes.append(list_to_str(random.choices(colors, k=length)))
+
         return codes
 
 
@@ -155,7 +159,7 @@ class TwoColor(SCSA):
 
         self.name = "TwoColor"
 
-    def generate_codes(self, length, colors, num_codes = 1):
+    def generate_codes(self, length, colors, num_codes=1):
         """Generate codes based on TwoColor SCSA
 
         Args:
@@ -179,7 +183,7 @@ class TwoColor(SCSA):
             codes = [0]*length
 
             # Randomly pick two spots in string
-            indicies = random.sample(range(0,length), k=2)
+            indicies = random.sample(range(0, length), k=2)
 
             # Set those two spots in the string to the two colors
             # This guarantees both colors are used at least once
@@ -207,7 +211,7 @@ class TwoColor(SCSA):
                 code = [0]*length
 
                 # Randomly pick two spots in string
-                indicies = random.sample(range(0,length), k=2)
+                indicies = random.sample(range(0, length), k=2)
 
                 # Set those two spots in the string to the two colors
                 # This guarantees both colors are used at least once
@@ -222,7 +226,7 @@ class TwoColor(SCSA):
                         code[i] = random.choice(usable_colors)
 
                 codes.append(list_to_str(code))
-                
+
         return codes
 
 
@@ -236,7 +240,7 @@ class ABColor(SCSA):
 
         self.name = "ABColor"
 
-    def generate_codes(self, length, colors, num_codes = 1):
+    def generate_codes(self, length, colors, num_codes=1):
         """Generate codes based on ABColor SCSA
 
         Args:
@@ -258,7 +262,7 @@ class ABColor(SCSA):
             codes = [0]*length
 
             # Randomly pick two spots in string
-            indicies = random.sample(range(0,length), k=2)
+            indicies = random.sample(range(0, length), k=2)
 
             # Set those two spots in the string to the two colors
             # This guarantees both colors are used at least once
@@ -284,7 +288,7 @@ class ABColor(SCSA):
                 code = [0]*length
 
                 # Randomly pick two spots in string
-                indicies = random.sample(range(0,length), k=2)
+                indicies = random.sample(range(0, length), k=2)
 
                 # Set those two spots in the string to the two colors
                 # This guarantees both colors are used at least once
@@ -299,7 +303,7 @@ class ABColor(SCSA):
                         code[i] = random.choice(usable_colors)
 
                 codes.append(list_to_str(code))
-                
+
         return codes
 
 
@@ -313,7 +317,7 @@ class TwoColorAlternating(SCSA):
 
         self.name = "TwoColorAlternating"
 
-    def generate_codes(self, length, colors, num_codes = 1):
+    def generate_codes(self, length, colors, num_codes=1):
         """Generate codes based on TwoColorAlternating SCSA
 
         Args:
@@ -333,7 +337,8 @@ class TwoColorAlternating(SCSA):
 
             usable_colors = list_to_str(random.sample(colors, k=2))
 
-            first_color, second_color = list_to_str(random.sample(usable_colors, k = 2))
+            first_color, second_color = list_to_str(
+                random.sample(usable_colors, k=2))
 
             codes = ""
 
@@ -355,7 +360,7 @@ class TwoColorAlternating(SCSA):
 
                 usable_colors = list_to_str(random.sample(colors, k=2))
 
-                first_color, second_color = random.sample(usable_colors, k = 2)
+                first_color, second_color = random.sample(usable_colors, k=2)
 
                 code = ""
 
@@ -370,8 +375,9 @@ class TwoColorAlternating(SCSA):
                         code += second_color
 
                 codes.append(code)
-                
+
         return codes
+
 
 class OnlyOnce(SCSA):
     """ SCSA that generates codes in which a color appears at most once
@@ -383,7 +389,7 @@ class OnlyOnce(SCSA):
 
         self.name = "OnlyOnce"
 
-    def generate_codes(self, length, colors, num_codes = 1):
+    def generate_codes(self, length, colors, num_codes=1):
         """Generate codes based on OnlyOnce SCSA
 
         Args:
@@ -401,7 +407,7 @@ class OnlyOnce(SCSA):
 
         if num_codes == 1:
 
-            codes = list_to_str(random.sample(colors, k = length))
+            codes = list_to_str(random.sample(colors, k=length))
 
         else:
 
@@ -409,8 +415,8 @@ class OnlyOnce(SCSA):
 
             for _ in range(num_codes):
 
-                codes.append(list_to_str(random.sample(colors, k = length))) 
-                
+                codes.append(list_to_str(random.sample(colors, k=length)))
+
         return codes
 
 
@@ -424,7 +430,7 @@ class FirstLast(SCSA):
 
         self.name = "FirstLast"
 
-    def generate_codes(self, length, colors, num_codes = 1):
+    def generate_codes(self, length, colors, num_codes=1):
         """Generate codes based on FirstLast SCSA
 
         Args:
@@ -442,8 +448,8 @@ class FirstLast(SCSA):
 
         if num_codes == 1:
 
-            codes = random.choices(colors, k = length-2)
-            color = random.choices(colors, k = 1)
+            codes = random.choices(colors, k=length-2)
+            color = random.choices(colors, k=1)
 
             codes.insert(0, color[0])
             codes.append(color[0])
@@ -456,17 +462,18 @@ class FirstLast(SCSA):
 
             for _ in range(num_codes):
 
-                code = random.choices(colors, k = length-2)
-                color = random.choices(colors, k = 1)
+                code = random.choices(colors, k=length-2)
+                color = random.choices(colors, k=1)
 
                 code.insert(0, color[0])
                 code.append(color[0])
 
                 code = list_to_str(code)
 
-                codes.append(code) 
-                
+                codes.append(code)
+
         return codes
+
 
 class UsuallyFewer(SCSA):
     """ SCSA that generates codes that usually has fewer (2 or 3) colors
@@ -478,7 +485,7 @@ class UsuallyFewer(SCSA):
 
         self.name = "UsuallyFewer"
 
-    def generate_codes(self, length, colors, num_codes = 1):
+    def generate_codes(self, length, colors, num_codes=1):
         """Generate codes based on UsuallyFewer SCSA
 
         Args:
@@ -496,19 +503,19 @@ class UsuallyFewer(SCSA):
 
         if num_codes == 1:
 
-            probability = random.randint(0,100)
+            probability = random.randint(0, 100)
 
             if probability < 90:
 
-                num = random.randint(2,3)
+                num = random.randint(2, 3)
 
-                picked_colors = random.sample(colors, k = num)
+                picked_colors = random.sample(colors, k=num)
 
             else:
 
                 picked_colors = colors
 
-            codes = list_to_str(random.choices(picked_colors, k = length))
+            codes = list_to_str(random.choices(picked_colors, k=length))
 
         else:
 
@@ -516,36 +523,36 @@ class UsuallyFewer(SCSA):
 
             for _ in range(num_codes):
 
-                probability = random.randint(0,100)
+                probability = random.randint(0, 100)
 
                 if probability < 90:
 
-                    num = random.randint(2,3)
+                    num = random.randint(2, 3)
 
-                    picked_colors = random.sample(colors, k = num)
+                    picked_colors = random.sample(colors, k=num)
 
                 else:
 
                     picked_colors = colors
 
-                code = list_to_str(random.choices(picked_colors, k = length))
+                code = list_to_str(random.choices(picked_colors, k=length))
 
-                codes.append(code) 
-                
+                codes.append(code)
+
         return codes
 
 
 class PreferFewer(SCSA):
     """ SCSA that generates codes with a preference for fewer colors
     """
-    
+
     def __init__(self):
         """Constructor for PreferFewer
         """
 
         self.name = "PreferFewer"
 
-    def generate_codes(self, length, colors, num_codes = 1):
+    def generate_codes(self, length, colors, num_codes=1):
         """Generate codes based on PreferFewer SCSA
 
         Args:
@@ -563,45 +570,43 @@ class PreferFewer(SCSA):
 
         if num_codes == 1:
 
-            probability = random.randint(0,100)
+            probability = random.randint(0, 100)
 
             if probability <= 49:
 
                 num = 1
 
-                picked_colors = random.sample(colors, k = num)
-
+                picked_colors = random.sample(colors, k=num)
 
             elif probability <= 74:
 
                 num = 2
 
-                picked_colors = random.sample(colors, k = num)
-
+                picked_colors = random.sample(colors, k=num)
 
             elif probability <= 87:
 
                 num = min(3, len(colors))
 
-                picked_colors = random.sample(colors, k = num)
+                picked_colors = random.sample(colors, k=num)
 
             elif probability <= 95:
 
                 num = min(4, len(colors))
 
-                picked_colors = random.sample(colors, k = num)
+                picked_colors = random.sample(colors, k=num)
 
-            elif probability <= 98: 
+            elif probability <= 98:
 
                 num = min(5, len(colors))
 
-                picked_colors = random.sample(colors, k = num)
+                picked_colors = random.sample(colors, k=num)
 
             else:
 
                 picked_colors = colors
 
-            codes = list_to_str(random.choices(picked_colors, k = length))
+            codes = list_to_str(random.choices(picked_colors, k=length))
 
         else:
 
@@ -609,46 +614,44 @@ class PreferFewer(SCSA):
 
             for _ in range(num_codes):
 
-                probability = random.randint(0,100)
+                probability = random.randint(0, 100)
 
                 if probability <= 49:
 
                     num = 1
 
-                    picked_colors = random.sample(colors, k = num)
-
+                    picked_colors = random.sample(colors, k=num)
 
                 elif probability <= 74:
 
                     num = 2
 
-                    picked_colors = random.sample(colors, k = num)
-
+                    picked_colors = random.sample(colors, k=num)
 
                 elif probability <= 87:
 
                     num = min(3, len(colors))
 
-                    picked_colors = random.sample(colors, k = num)
+                    picked_colors = random.sample(colors, k=num)
 
                 elif probability <= 95:
 
                     num = min(4, len(colors))
 
-                    picked_colors = random.sample(colors, k = num)
+                    picked_colors = random.sample(colors, k=num)
 
-                elif probability <= 98: 
+                elif probability <= 98:
 
                     num = min(5, len(colors))
 
-                    picked_colors = random.sample(colors, k = num)
+                    picked_colors = random.sample(colors, k=num)
 
                 else:
 
                     picked_colors = colors
 
-                code = list_to_str(random.choices(picked_colors, k = length))
+                code = list_to_str(random.choices(picked_colors, k=length))
 
-                codes.append(code) 
-                
+                codes.append(code)
+
         return codes
