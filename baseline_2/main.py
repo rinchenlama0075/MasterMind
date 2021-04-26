@@ -5,7 +5,7 @@ import sys
 from scsa import *
 from player import *
 from mastermind import *
-from fbi_B1 import B1Player
+# from fbi_B1 import B1Player
 from fbi_B2 import Baseline2
 
 
