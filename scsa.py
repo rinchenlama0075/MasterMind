@@ -252,8 +252,6 @@ class ABColor(SCSA):
 
         if num_codes == 1:
 
-            usable_colors = random.sample(colors, k=2)
-
             # Create 'uninitialized' code as list
             codes = [0]*length
 
@@ -331,9 +329,7 @@ class TwoColorAlternating(SCSA):
 
         if num_codes == 1:
 
-            usable_colors = list_to_str(random.sample(colors, k=2))
-
-            first_color, second_color = list_to_str(random.sample(usable_colors, k = 2))
+            first_color, second_color = list_to_str(random.sample(colors, k = 2))
 
             codes = ""
 
@@ -353,9 +349,7 @@ class TwoColorAlternating(SCSA):
 
             for _ in range(num_codes):
 
-                usable_colors = list_to_str(random.sample(colors, k=2))
-
-                first_color, second_color = random.sample(usable_colors, k = 2)
+                first_color, second_color = random.sample(colors, k = 2)
 
                 code = ""
 

@@ -19,8 +19,8 @@ def letter_to_num(letter):
 
     return ord(letter) - 64
 
-def score(results):
-    """Computes score for a tournament
+def old_score(results):
+    """Computes score using old score function for a tournament
 
     Args:
         results (dict): Dictionary containing number of wins, losses, and failures for a tournament.
@@ -36,14 +36,14 @@ class Round:
     """Representation for round of the game of Mastermind
     """
 
-    def __init__(self, board_length, colors, answer, scsa, guess_cutoff = 100, time_cutoff = 5):
+    def __init__(self, board_length, colors, answer, scsa_name, guess_cutoff = 100, time_cutoff = 5):
         """Constuctor for Round
 
         Args:
             board_length (int): Number of pegs.
             colors (list of strs): All possible colors that can be used to generate a code.
             answer (string): Answer for the round that the player is trying to guess.
-            scsa (SCSA): Instance of secret-code selection algorithm.
+            scsa_name (str): Name of SCSA used to generate secret code.
             guess_cutoff (int, optional): Number of guesses allowed per round. Defaults to 100.
             time_cutoff (int, optional): Amount of time in seconds allowed for the round. Defaults to 5.
         """
@@ -51,7 +51,7 @@ class Round:
         self.board_length = board_length
         self.colors = colors
         self.answer = answer
-        self.scsa = scsa
+        self.scsa_name = scsa_name
         self.guesses = 0
         self.guess_cutoff = guess_cutoff
         self.time_cutoff = time_cutoff
@@ -184,7 +184,7 @@ class Round:
         while self.guesses < self.guess_cutoff:
 
             start = time.time()
-            guess = player.make_guess(self.board_length, self.colors, self.scsa, response)
+            guess = player.make_guess(self.board_length, self.colors, self.scsa_name, response)
             end = time.time()
 
             self.guesses += 1
@@ -235,20 +235,23 @@ class Mastermind:
         self.tournament_time_cutoff = tournament_time_cutoff
         self.time_used = 0
 
-    def print_results(self, player, results, num_rounds):
+    def print_results(self, player, scsa_name, results, score, num_rounds):
         """Prints results for a tournament
 
         Args:
             player (Player): Player who played in the tournament.
+            scsa_name (str): Name of SCSA used to generate codes in tournament.
             results (dict): Dictionary containing number of wins, losses, and failures for a tournament.
+            score (float): Score for tournament computed based on function in project description.
             num_rounds (int): Number of rounds in the tournament.
         """
 
         print("Player:", player.player_name)
+        print("SCSA Name:", scsa_name)
         print("Game:", self.board_length, "Pegs", self.num_colors, "Colors")
         print("Rounds:", sum(results.values()), "out of", num_rounds)
         print("Results:", results)
-        print("Score:", score(results))
+        print("Score:", score)
 
         return 
 
@@ -263,13 +266,13 @@ class Mastermind:
         
         results = {"win": 0, "loss": 0, "failure": 0}
 
-        
+        score = 0
 
         for i in range(1,num_rounds+1):
 
             code = scsa.generate_codes(self.board_length, self.colors, 1)
 
-            round = Round(self.board_length, self.colors, code, scsa, self.guess_cutoff, self.round_time_cutoff)
+            round = Round(self.board_length, self.colors, code, scsa.name, self.guess_cutoff, self.round_time_cutoff)
 
             start = time.time()
             result, guesses = round.play_round(player)
@@ -287,21 +290,27 @@ class Mastermind:
 
             results[result] += 1
 
-            if result == "failure":
+            if result == "win":
+
+                score += self.board_length*len(self.colors)*(5*guesses**(-0.5))
+
+            elif result == "failure":
+
+                score -= 2*self.board_length*len(self.colors)
 
                 break
 
-        self.print_results(player, results, num_rounds)
+        self.print_results(player, scsa.name, results, score, num_rounds)
 
         return 
 
 
-    def practice_tournament(self, player, scsa, code_file):
+    def practice_tournament(self, player, scsa_name, code_file):
         """Plays a tournament of Mastermind using pregenerated codes from file
 
         Args:
             player (Player): Player who plays in tournament, making guesses.
-            scsa (SCSA): SCSA that codes in file are generated from.
+            scsa_name (str): Name of SCSA used to generate codes in tournament.
             code_file (str): Name of file to read secret codes from.
         """
 
@@ -311,13 +320,15 @@ class Mastermind:
 
         results = {"win": 0, "loss": 0, "failure": 0}
 
+        score = 0
+
         cur_round = 0
 
         for code in codes:
 
             cur_round += 1
 
-            round = Round(self.board_length, self.colors, code, scsa, self.guess_cutoff, self.round_time_cutoff)
+            round = Round(self.board_length, self.colors, code, scsa_name, self.guess_cutoff, self.round_time_cutoff)
 
             start = time.time()
             result, guesses = round.play_round(player)
@@ -335,10 +346,16 @@ class Mastermind:
 
             results[result] += 1
 
-            if result == "failure":
+            if result == "win":
+
+                score += self.board_length*len(self.colors)*(5*guesses**(-0.5))
+
+            elif result == "failure":
+
+                score -= 2*self.board_length*len(self.colors)
 
                 break
 
-        self.print_results(player, results, num_rounds)
+        self.print_results(player, scsa_name, results, score, num_rounds)
 
         return

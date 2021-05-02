@@ -14,13 +14,13 @@ class Player:
 
         self.player_name = ""
 
-    def make_guess(self, board_length, colors, scsa, last_response):
+    def make_guess(self, board_length, colors, scsa_name, last_response):
         """Makes a guess of the secret code for Mastermind
 
         Args:
             board_length (int): Number of pegs of secret code.
             colors (list of chr): Colors that could be used in the secret code.
-            scsa (SCSA): SCSA used to generate secret code.
+            scsa_name (str): Name of SCSA used to generate secret code.
             last_response (tuple of ints): First element in tuple is the number of pegs that match exactly with the secret 
                                            code for the previous guess and the second element is the number of pegs that are 
                                            the right color, but in the wrong location for the previous guess.
@@ -42,13 +42,13 @@ class RandomFolks(Player):
 
         self.player_name = "RandomFolks"
 
-    def make_guess(self, board_length, colors, scsa, last_response):
+    def make_guess(self, board_length, colors, scsa_name, last_response):
         """Makes a guess of the secret code for Mastermind
 
         Args:
             board_length (int): Number of pegs of secret code.
             colors (list of chrs): Colors that could be used in the secret code.
-            scsa (SCSA): SCSA used to generate secret code.
+            scsa_name (str): Name of SCSA used to generate secret code.
             last_response (tuple of ints): First element in tuple is the number of pegs that match exactly with the secret 
                                            code for the previous guess and the second element is the number of pegs that are 
                                            the right color, but in the wrong location for the previous guess.
@@ -74,13 +74,13 @@ class Boring(Player):
 
         self.player_name = "Boring"
 
-    def make_guess(self, board_length, colors, scsa, last_response):
+    def make_guess(self, board_length, colors, scsa_name, last_response):
         """Makes a guess of the secret code for Mastermind
 
         Args:
             board_length (int): Number of pegs of secret code.
             colors (list of chrs): All possible colors that can be used to generate a code.
-            scsa (SCSA): SCSA used to generate secret code.
+            scsa_name (str): Name of SCSA used to generate secret code.
             last_response (tuple of ints): First element in tuple is the number of pegs that match exactly with the secret 
                                            code for the previous guess and the second element is the number of pegs that are 
                                            the right color, but in the wrong location for the previous guess.
