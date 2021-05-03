@@ -108,16 +108,16 @@ class RaosAlgorithm(Player):
         bulls, cows, guess_number = last_response
 
         if(self.being_fixed == 0):
-            gain: = (bulls+cows) - Numfix(inferences) - 1
+            gain = (bulls+cows) - Numfix(inferences) - 1
         else:
-            gain: = (bulls+cows)-Numfix(inferences)
+            gain = (bulls+cows)-Numfix(inferences)
 
         if cows == 0:
             # Begin
             Fix(self.being_fixed)
             Bump(self.being_fixed)
         elif cows == 1:
-            if(self.being_fixedbeingfixed < > 0):
+            if(self.being_fixedbeingfixed != 0):
                 Del(self.being_fixed, self.being_considered)
             Del(self.being_fixed, self.being_fixed)
         elif cows == 2:
