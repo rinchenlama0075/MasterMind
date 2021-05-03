@@ -21,6 +21,9 @@ class RaosAlgorithm(Player):
         # increase once a position is fixed for a color
         self.being_fixed = -1
 
+        # list of positions that have been fixed
+        self.fixed = []
+
     def make_guess(self, board_length, colors, scsa, last_response):
         """Makes a guess of the secret code for Mastermind
 
@@ -101,6 +104,76 @@ class RaosAlgorithm(Player):
         cows = input()
         return bulls, cows
 
+    def update(self, last_response, board_length):
+        bulls, cows, guess_number = last_response
+
+        if(self.being_fixed == 0):
+            gain: = (bulls+cows) - Numfix(inferences) - 1
+        else:
+            gain: = (bulls+cows)-Numfix(inferences)
+
+        if cows == 0:
+            # Begin
+            Fix(self.being_fixed)
+            Bump(self.being_fixed)
+        elif cows == 1:
+            if(self.being_fixedbeingfixed < > 0):
+                Del(self.being_fixed, self.being_considered)
+            Del(self.being_fixed, self.being_fixed)
+        elif cows == 2:
+            Fix1(self.being_considered, self.being_fixed)
+        else:
+            print("error")
+
+        Cleanup(self.inferences)
+        Nextcolor(self.being_considered)
+
+    def Numfix(self, inferences):
+        "should return the num of positions tied to colors"
+        count = 0
+        for x in range(len(inferences)):
+            # print("color: ", self.inferences[x], " is tied to: ")
+            for y in range(len(inferences[x])):
+                # print(self.inferences[x][y])
+                count = count+1
+
+        return count
+
+    def Fix(self, being_fixed):
+        "should put beingfixed in its possible position and deletes appropriate position from other lists"
+        for x in range(len(self.inferences[self.being_fixed][KB.Positions])-1):
+            self.inferences[self.being_fixed][KB.Positions].pop(-1)
+        self.fixed.append(self.inferences[self.being_fixed][KB.Positions][0])
+
+    def Bump(self, being_fixed):
+        "get the next beingfixed "
+        self.being_fixed = self.being_fixed+1
+
+    def Del(self, i, j):
+        "from the sublist in inferences, delete current position of color i from the sublist of color j"
+        self.inferences[i][KB.Positions].pop()
+
+    def Fix1(self, i, j):
+        "fix color i in the current position of color j"
+        self.inferences[i][KB.Positions][0] = self.inferences[j][KB.Positions][0]
+        for x in range(len(self.inferences[i][KB.Positions])-1):
+            self.inferences[i][KB.Positions].pop(-1)
+
+    def Cleanup(self, inferences):
+        "remove positions that have been fixed from the sublist of the color being_fixed  "
+        for x in range(len(self.inferences)):
+            if len(self.inferences[x][KB.Positions]) == 1:
+                break
+            else:
+                for y in range(len(self.inferences[x])):
+                    if(self.inferences[x][KB.Positions][y] in self.fixed):
+                        self.inferences[x][KB.Positions].remove(
+                            self.inferences[x][KB.Positions][y])
+
+    def Nextcolor(self):
+        "should return next color to consider"
+        self.being_considered = self.being_considered+1
+
 
 # def MasterMind(N, M):
 #     """
@@ -138,3 +211,5 @@ class RaosAlgorithm(Player):
 
 # if __name__ == "__main__":
 #     main()
+
+# sometimes he uses ":=" to mean assignment and "=" to mean ==, but sometimes he also uses "=" to mean assignment too oh wait I mean he uses <> to mean == but will use either := or = for assignment
