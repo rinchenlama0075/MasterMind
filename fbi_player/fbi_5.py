@@ -7,9 +7,9 @@ class KB(enum.Enum):
     Positions = 1
 
 
-class RaosAlgorithm(Player):
+class FBI_5(Player):
     def __init__(self):
-        self.player_name = "RaosAlgorithm"
+        self.player_name = "FBI_5"
 
         # inferences[i][0] is a color, inferences[i][1] is a list of possible positions for that color
         self.inferences = []
@@ -35,7 +35,40 @@ class RaosAlgorithm(Player):
                                            code for the previous guess and the second element is the number of pegs that are 
                                            the right color, but in the wrong location for the previous guess.
         """
-        return
+        self.update(last_response, board_length)
+        return self.get_next(board_length)
+
+    """
+    get_next method returns next guess
+    Helper functions: 
+        - self.tied(pos)
+            - Returns true if pos has a color tied to it.
+        - self.its_color(tied_pos) 
+            - Returns the color to which tied_pos is tied to.
+        - self.next_pos(being_fixed)
+            - Returns the next possible position for the color being fixed, i.e. first color in possible positions
+        - self.second_unfixed()
+            - Returns the second color which is not yet fixed
+    """
+    def get_next(self, board_length):
+        """
+        Returns next guess
+
+        Parameters
+        ----------
+        trial - Previous guess
+        """
+        new_trial = []
+        for i in range(board_length):
+            if self.tied(i):
+                new_trial.append(self.its_color(i))
+            elif i == self.next_pos(self.being_fixed):
+                new_trial.append(self.being_fixed)
+            elif len(self.inferences) == board_length:
+                new_trial.append(secondunfixed(self.inferences))
+            else:
+                new_trial.append(self.being_considered)
+        return new_trial
 
     def tied(self, pos):
         """
@@ -52,7 +85,7 @@ class RaosAlgorithm(Player):
                 return True
         return False
 
-    def itscolor(self, tied_pos):
+    def its_color(self, tied_pos):
         """
         Returns the color that a tied position is tied to
 
@@ -66,69 +99,48 @@ class RaosAlgorithm(Player):
             if len(self.inferences[i][KB.Positions]) == 1 and self.inferences[i][KB.Positions][0] == tied_pos:
                 return self.inferences[i][KB.Color]
 
-    def nextpos(self, color):
+    def next_pos(self, being_fixed):
         """
-       Returns the next possible position for the color 
-
-       Parameters
-       ----------
-       tied_pos - the position in the trial that is tied to a color
-       """
-
-    def Getnext(self, trial):
-        """
-        Returns next guess
+        Returns the next possible position for the color that is being fixed
 
         Parameters
         ----------
-        trial - Previous guess
+        being_fixed - the position in the trial that is tied to a color
         """
-        N = len(trial)
-        new_trial = []
-        for i in range(N):
-            if self.tied(i):
-                new_trial.append(self.itscolor(i))
-            elif i == self.nextpos(self.being_fixed):
-                new_trial.append(self.being_fixed)
-            elif len(self.inferences) == N:
-                new_trial.append(secondunfixed(self.inferences))
-            else:
-                new_trial.append(self.being_considered)
-        return new_trial
+        return self.inferences[being_fixed][KB.Positions][0]
 
-    def Try(self, trial):
-        print(f"My Next Trial: {trial}")
-        print("Enter Bulls >> ", end="")
-        bulls = input()
-        print("Enter Cows >> ", end="")
-        cows = input()
-        return bulls, cows
+    def second_unfixed(self):
+        return being_fixed + 1
+            
 
+    
+
+    
     def update(self, last_response, board_length):
-        bulls, cows, guess_number = last_response
+        bulls, cows = last_response
 
         if(self.being_fixed == 0):
-            gain = (bulls+cows) - Numfix(inferences) - 1
+            gain = (bulls+cows) - num_fix(inferences) - 1
         else:
-            gain = (bulls+cows)-Numfix(inferences)
+            gain = (bulls+cows)-num_fix(inferences)
 
         if cows == 0:
             # Begin
-            Fix(self.being_fixed)
-            Bump(self.being_fixed)
+            fix(self.being_fixed)
+            bump(self.being_fixed)
         elif cows == 1:
             if(self.being_fixedbeingfixed != 0):
-                Del(self.being_fixed, self.being_considered)
-            Del(self.being_fixed, self.being_fixed)
+                delete(self.being_fixed, self.being_considered)
+            delete(self.being_fixed, self.being_fixed)
         elif cows == 2:
-            Fix1(self.being_considered, self.being_fixed)
+            fix_1(self.being_considered, self.being_fixed)
         else:
             print("error")
 
-        Cleanup(self.inferences)
-        Nextcolor(self.being_considered)
+        clean_up(self.inferences)
+        next_color(self.being_considered)
 
-    def Numfix(self, inferences):
+    def num_fix(self, inferences):
         "should return the num of positions tied to colors"
         count = 0
         for x in range(len(inferences)):
@@ -139,27 +151,27 @@ class RaosAlgorithm(Player):
 
         return count
 
-    def Fix(self, being_fixed):
+    def fix(self, being_fixed):
         "should put beingfixed in its possible position and deletes appropriate position from other lists"
         for x in range(len(self.inferences[self.being_fixed][KB.Positions])-1):
             self.inferences[self.being_fixed][KB.Positions].pop(-1)
         self.fixed.append(self.inferences[self.being_fixed][KB.Positions][0])
 
-    def Bump(self, being_fixed):
+    def bump(self, being_fixed):
         "get the next beingfixed "
         self.being_fixed = self.being_fixed+1
 
-    def Del(self, i, j):
+    def delete(self, i, j):
         "from the sublist in inferences, delete current position of color i from the sublist of color j"
         self.inferences[i][KB.Positions].pop()
 
-    def Fix1(self, i, j):
+    def fix_1(self, i, j):
         "fix color i in the current position of color j"
         self.inferences[i][KB.Positions][0] = self.inferences[j][KB.Positions][0]
         for x in range(len(self.inferences[i][KB.Positions])-1):
             self.inferences[i][KB.Positions].pop(-1)
 
-    def Cleanup(self, inferences):
+    def clean_up(self, inferences):
         "remove positions that have been fixed from the sublist of the color being_fixed  "
         for x in range(len(self.inferences)):
             if len(self.inferences[x][KB.Positions]) == 1:
@@ -170,10 +182,18 @@ class RaosAlgorithm(Player):
                         self.inferences[x][KB.Positions].remove(
                             self.inferences[x][KB.Positions][y])
 
-    def Nextcolor(self):
+    def next_color(self):
         "should return next color to consider"
         self.being_considered = self.being_considered+1
 
+
+    # def evaluate_guess(self, trial):
+    #     print(f"My Next Trial: {trial}")
+    #     print("Enter Bulls >> ", end="")
+    #     bulls = input()
+    #     print("Enter Cows >> ", end="")
+    #     cows = input()
+    #     return bulls, cows
 
 # def MasterMind(N, M):
 #     """
