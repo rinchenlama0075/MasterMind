@@ -2,6 +2,7 @@ from player import *
 import enum
 from main import *
 
+
 class KB(enum.Enum):
     Color = 0
     Positions = 1
@@ -31,32 +32,33 @@ class FBI(Player):
             board_length (int): Number of pegs of secret code.
             colors (list of chr): Colors that could be used in the secret code.
             scsa (SCSA): SCSA used to generate secret code.
-            last_response (tuple of ints): First element in tuple is the number of pegs that match exactly with the secret 
-                                           code for the previous guess and the second element is the number of pegs that are 
+            last_response (tuple of ints): First element in tuple is the number of pegs that match exactly with the secret
+                                           code for the previous guess and the second element is the number of pegs that are
                                            the right color, but in the wrong location for the previous guess. The third element
                                            it the number of guesses made so far.
         """
+        # should access guess number from last guess? which can be defaulted to 0
         if last_response == 0:
             guess = colors[0] * board_length
-        else:        
+        else:
             self.update(last_response, board_length)
             guess = self.get_next(board_length)
 
         return guess
 
-
     """
     get_next method returns next guess
-    Helper functions: 
+    Helper functions:
         - self.tied(pos)
             - Returns true if pos has a color tied to it.
-        - self.its_color(tied_pos) 
+        - self.its_color(tied_pos)
             - Returns the color to which tied_pos is tied to.
         - self.next_pos(being_fixed)
             - Returns the next possible position for the color being fixed, i.e. first color in possible positions
         - self.second_unfixed()
             - Returns the second color which is not yet fixed
     """
+
     def get_next(self, board_length):
         """
         Returns next guess
@@ -72,7 +74,7 @@ class FBI(Player):
             elif i == self.next_pos(self.being_fixed):
                 new_trial.append(self.being_fixed)
             elif len(self.inferences) == board_length:
-                new_trial.append(secondunfixed(self.inferences))
+                new_trial.append(second_unfixed(self.inferences))
             else:
                 new_trial.append(self.being_considered)
         return new_trial
@@ -106,6 +108,7 @@ class FBI(Player):
             if len(self.inferences[i][KB.Positions]) == 1 and self.inferences[i][KB.Positions][0] == tied_pos:
                 return self.inferences[i][KB.Color]
 
+    # should return based on next on inf list,can't use being fixed as index
     def next_pos(self, being_fixed):
         """
         Returns the next possible position for the color that is being fixed
@@ -116,9 +119,9 @@ class FBI(Player):
         """
         return self.inferences[being_fixed][KB.Positions][0]
 
+    # should return second pos from inf that is not fixed cant; increase being_fixed by 1
     def second_unfixed(self):
         return being_fixed + 1
-            
 
     """
     update method updates inferences
@@ -128,6 +131,7 @@ class FBI(Player):
         - self.bump(being_fixed)
 
     """
+
     def update(self, last_response, board_length):
         bulls, cows, guesses = last_response
 
@@ -136,13 +140,16 @@ class FBI(Player):
         else:
             gain = (bulls+cows) - self.num_fix(self.inferences)
 
+        # add positions to inferences here
+        # addlists
+        addlists(self, last_response, board_length)
         if cows == 0:
             # Begin
             if self.being_fixed != -1:
                 self.fix(self.being_fixed)
             self.bump(self.being_fixed)
         elif cows == 1:
-            if(self.being_fixedbeingfixed != 0):
+            if(self.being_fixed != 0):
                 self.delete(self.being_fixed, self.being_considered)
             self.delete(self.being_fixed, self.being_fixed)
         elif cows == 2:
@@ -152,6 +159,14 @@ class FBI(Player):
 
         self.clean_up(self.inferences)
         self.next_color()
+
+    def addlists(self, last_response, board_length):
+        bulls, cows, guess_number = last_response
+        "should add a color and its possible positions to the Inferences"
+        if(len(self.fixed) == 0 and bulls != 0):
+            for x in range(board_length):
+                self.inferences[self.being_considered][KB.Color][KB.Positions].append(
+                    x)
 
     def fix(self, being_fixed):
         "should put beingfixed in its possible position and deletes appropriate position from other lists"
@@ -165,7 +180,8 @@ class FBI(Player):
 
     def delete(self, i, j):
         "from the sublist in inferences, delete current position of color i from the sublist of color j"
-        self.inferences[i][KB.Positions].pop()
+        self.inferences[j][KB.Positions].remove(
+            self.inferences[i][KB.Positions][0])
 
     def fix_1(self, i, j):
         "fix color i in the current position of color j"
@@ -188,6 +204,8 @@ class FBI(Player):
         "should return next color to consider"
         self.being_considered = self.being_considered+1
 
+    # should return total num of tied positions. not all possible positions
+    # return len(self.fixed)
     def num_fix(self, inferences):
         "should return the num of positions tied to colors"
         count = 0
@@ -198,8 +216,6 @@ class FBI(Player):
                 count = count+1
 
         return count
-
-
 
     # def evaluate_guess(self, trial):
     #     print(f"My Next Trial: {trial}")
@@ -247,15 +263,15 @@ class FBI(Player):
 #     main()
 
 # sometimes he uses ":=" to mean assignment and "=" to mean ==, but sometimes he also uses "=" to mean assignment too oh wait I mean he uses <> to mean == but will use either := or = for assignment
-
 if __name__ == "__main__":
     main()
 
+
 def main():
     if len(sys.argv) != 6:
-        
+
         print("Usage: python3 main.py <board length> <num colors> <player name> <scsa name> <num rounds>")
-        
+
         sys.exit(1)
 
     board_length = int(sys.argv[1])
@@ -263,7 +279,6 @@ def main():
     player_name = sys.argv[3]
     scsa_name = sys.argv[4]
     num_rounds = int(sys.argv[5])
-
 
     if player_name == "RandomFolks":
 
@@ -281,7 +296,6 @@ def main():
 
         print("Unrecognized player.")
         sys.exit(1)
-
 
     if scsa_name == "InsertColors":
 
@@ -320,7 +334,7 @@ def main():
         print("Unrecognized SCSA.")
         sys.exit(1)
 
-    colors = [chr(i) for i in range(65,91)][:num_colors]
+    colors = [chr(i) for i in range(65, 91)][:num_colors]
 
     mastermind = Mastermind(board_length, colors)
 
