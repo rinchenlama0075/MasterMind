@@ -16,7 +16,7 @@ class FBI(Player):
         self.inferences = []
 
         # increase once every turn to try a different color
-        self.being_considered = 0
+        self.being_considered = "A"
 
         # initial value to correspond to first color determined to be in the code
         # increase once a position is fixed for a color
@@ -24,6 +24,7 @@ class FBI(Player):
 
         # list of positions that have been fixed
         self.fixed = []
+
 
     def make_guess(self, board_length, colors, scsa, last_response):
         """Makes a guess of the secret code for Mastermind
@@ -38,12 +39,8 @@ class FBI(Player):
                                            it the number of guesses made so far.
         """
         # should access guess number from last guess? which can be defaulted to 0
-        if last_response == 0:
-            guess = colors[0] * board_length
-        else:
-            self.update(last_response, board_length)
-            guess = self.get_next(board_length)
-
+        self.update(last_response, board_length, colors)
+        guess = self.get_next(board_length, colors)
         return guess
 
     """
@@ -59,7 +56,7 @@ class FBI(Player):
             - Returns the second color which is not yet fixed
     """
 
-    def get_next(self, board_length):
+    def get_next(self, board_length, colors):
         """
         Returns next guess
 
@@ -76,7 +73,7 @@ class FBI(Player):
             elif len(self.inferences) == board_length:
                 new_trial.append(second_unfixed(self.inferences))
             else:
-                new_trial.append(self.being_considered)
+                new_trial.append(colors[self.being_considered])
         return new_trial
 
     def tied(self, pos):
@@ -87,11 +84,8 @@ class FBI(Player):
         ----------
         pos - The given position in the trial/guess
         """
-        for i in range(len(self.inferences)):
-            # Look at each color in inferences, if the possible positions is just 1 position (tied), see if it matches the parameter pos
-            # If there is a match, that position is tied to a color
-            if len(self.inferences[i][KB.Positions]) == 1 and self.inferences[i][KB.Positions][0] == pos:
-                return True
+        if pos in self.fixed:
+            return True
         return False
 
     def its_color(self, tied_pos):
@@ -117,6 +111,8 @@ class FBI(Player):
         ----------
         being_fixed - the position in the trial that is tied to a color
         """
+        if being_fixed == -1:
+            return -1
         return self.inferences[being_fixed][KB.Positions][0]
 
     # should return second pos from inf that is not fixed cant; increase being_fixed by 1
@@ -132,17 +128,22 @@ class FBI(Player):
 
     """
 
-    def update(self, last_response, board_length):
+    def update(self, last_response, board_length, colors):
         bulls, cows, guesses = last_response
+        if guesses == 0:
+            return
+        if bulls == 0 and cows == 0:
+            self.being_considered += 1
+            return
 
-        if(self.being_fixed == 0):
-            gain = (bulls+cows) - self.num_fix(self.inferences) - 1
-        else:
-            gain = (bulls+cows) - self.num_fix(self.inferences)
+        # if(self.being_fixed == 0):
+        #     gain = (bulls+cows) - self.num_fix(self.inferences) - 1
+        # else:
+        #     gain = (bulls+cows) - self.num_fix(self.inferences)
 
         # add positions to inferences here
         # addlists
-        addlists(self, last_response, board_length)
+        self.addlists(self, last_response, board_length, colors)
         if cows == 0:
             # Begin
             if self.being_fixed != -1:
@@ -160,13 +161,20 @@ class FBI(Player):
         self.clean_up(self.inferences)
         self.next_color()
 
-    def addlists(self, last_response, board_length):
+    # Takeaways: We only add lists when we want to take something that is being considered and start fixing it
+    def addlists(self, last_response, board_length, colors):
         bulls, cows, guess_number = last_response
-        "should add a color and its possible positions to the Inferences"
-        if(len(self.fixed) == 0 and bulls != 0):
-            for x in range(board_length):
-                self.inferences[self.being_considered][KB.Color][KB.Positions].append(
-                    x)
+
+        # Get possible positions by taking all possible positions and remove those that have been fixed
+        possible_positions = list(set(range(board_length)) - set(self.fixed))
+
+        # We have also fixed some colors which will be part of the bulls
+        # we can take away that amount to be left with the number of 
+        # similar to how we calculate gain, not sure why we -1 in one of the gain calculations
+        num_lists_to_add = (bulls + cows) - len(self.fixed)
+        for i in range(num_lists_to_add):
+            inferences.append([colors[]])
+
 
     def fix(self, being_fixed):
         "should put beingfixed in its possible position and deletes appropriate position from other lists"
