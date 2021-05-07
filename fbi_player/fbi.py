@@ -25,7 +25,6 @@ class FBI(Player):
         # list of positions that have been fixed
         self.fixed = []
 
-
     def make_guess(self, board_length, colors, scsa, last_response):
         """Makes a guess of the secret code for Mastermind
 
@@ -34,27 +33,14 @@ class FBI(Player):
             colors (list of chr): Colors that could be used in the secret code.
             scsa (SCSA): SCSA used to generate secret code.
             last_response (tuple of ints): First element in tuple is the number of pegs that match exactly with the secret
-                                           code for the previous guess and the second element is the number of pegs that are
-                                           the right color, but in the wrong location for the previous guess. The third element
-                                           it the number of guesses made so far.
+            code for the previous guess and the second element is the number of pegs that are
+            the right color, but in the wrong location for the previous guess. The third element
+            it the number of guesses made so far.
         """
         # should access guess number from last guess? which can be defaulted to 0
         self.update(last_response, board_length, colors)
         guess = self.get_next(board_length, colors)
         return guess
-
-    """
-    get_next method returns next guess
-    Helper functions:
-        - self.tied(pos)
-            - Returns true if pos has a color tied to it.
-        - self.its_color(tied_pos)
-            - Returns the color to which tied_pos is tied to.
-        - self.next_pos(being_fixed)
-            - Returns the next possible position for the color being fixed, i.e. first color in possible positions
-        - self.second_unfixed()
-            - Returns the second color which is not yet fixed
-    """
 
     def get_next(self, board_length, colors):
         """
@@ -130,29 +116,30 @@ class FBI(Player):
 
     def update(self, last_response, board_length, colors):
         bulls, cows, guesses = last_response
-        if guesses == 0:
-            return
-        if bulls == 0 and cows == 0:
-            self.being_considered += 1
-            return
 
-        # if(self.being_fixed == 0):
-        #     gain = (bulls+cows) - self.num_fix(self.inferences) - 1
-        # else:
-        #     gain = (bulls+cows) - self.num_fix(self.inferences)
+        if(self.being_fixed == -1):
+            # if no elements have been added to the inferences
+            gain = (bulls+cows) - self.num_fix(self.inferences)
+        else:
+            # there is at least one color in inferences and it is being fixed
+            gain = (bulls+cows) - self.num_fix(self.inferences)
 
         # add positions to inferences here
-        # addlists
-        self.addlists(self, last_response, board_length, colors)
+        # if gain was 0, no positons or elements will be added
+        self.addlists(self, gain, board_length, self.being_considered)
+
         if cows == 0:
             # Begin
             if self.being_fixed != -1:
                 self.fix(self.being_fixed)
-            self.bump(self.being_fixed)
+                # inc self.being_fixed by 1
+                if(self.being_fixed < len(self.inferences)):
+                    self.bump(self.being_fixed)
         elif cows == 1:
-            if(self.being_fixed != 0):
-                self.delete(self.being_fixed, self.being_considered)
-            self.delete(self.being_fixed, self.being_fixed)
+            # delete current position of being_fixed
+            if(self.being_fixed != -1):
+                self.delete(self.inferences[self.being_considered][0])
+            # self.delete(self.being_fixed, self.being_fixed)
         elif cows == 2:
             self.fix_1(self.being_considered, self.being_fixed)
         else:
@@ -162,19 +149,17 @@ class FBI(Player):
         self.next_color()
 
     # Takeaways: We only add lists when we want to take something that is being considered and start fixing it
-    def addlists(self, last_response, board_length, colors):
-        bulls, cows, guess_number = last_response
-
-        # Get possible positions by taking all possible positions and remove those that have been fixed
-        possible_positions = list(set(range(board_length)) - set(self.fixed))
-
-        # We have also fixed some colors which will be part of the bulls
-        # we can take away that amount to be left with the number of 
-        # similar to how we calculate gain, not sure why we -1 in one of the gain calculations
-        num_lists_to_add = (bulls + cows) - len(self.fixed)
-        for i in range(num_lists_to_add):
-            inferences.append([colors[]])
-
+    def addlists(self, gain, board_length, color):
+        # prepare a list item, which is a color and list of all colors*
+        # add that color for the number of range(gain)
+        # adding extra positions is okay here. it is taken care of by clean_up
+        for i in range(gain):
+            list_item = [color, list(range(0, board_length))]
+            # if there are reference issues, import copy and use copy.deepcopy
+            self.inferences.append(list_item)
+        # when items are added on the list for the first time, increase self.being_fixed
+        if(self.being_fixed == -1 and gain != 0):
+            self.bump(self.being_fixed)
 
     def fix(self, being_fixed):
         "should put beingfixed in its possible position and deletes appropriate position from other lists"
@@ -186,11 +171,17 @@ class FBI(Player):
         "get the next beingfixed "
         self.being_fixed = self.being_fixed+1
 
-    def delete(self, i, j):
-        "from the sublist in inferences, delete current position of color i from the sublist of color j"
-        self.inferences[j][KB.Positions].remove(
-            self.inferences[i][KB.Positions][0])
+    # RAO'S IMPLEMENTATION
+    # def delete(self, i, j):
+    #     "from the sublist in inferences, delete current position of color i from the sublist of color j"
+    #     self.inferences[j][KB.Positions].remove(
+    #         self.inferences[i][KB.Positions][0])
 
+    # Sensible Implementation of delete
+    def delete(self, i):
+        self.inferences[self.being_fixed][1].remove(i)
+
+    # ip
     def fix_1(self, i, j):
         "fix color i in the current position of color j"
         self.inferences[i][KB.Positions][0] = self.inferences[j][KB.Positions][0]
@@ -198,19 +189,15 @@ class FBI(Player):
             self.inferences[i][KB.Positions].pop(-1)
 
     def clean_up(self, inferences):
-        "remove positions that have been fixed from the sublist of the color being_fixed  "
+        "remove positions that have been fixed from possible positions for all colors"
         for x in range(len(self.inferences)):
-            if len(self.inferences[x][KB.Positions]) == 1:
-                break
-            else:
-                for y in range(len(self.inferences[x])):
-                    if(self.inferences[x][KB.Positions][y] in self.fixed):
-                        self.inferences[x][KB.Positions].remove(
-                            self.inferences[x][KB.Positions][y])
+            if(len(self.inferences[x][1]) != 1):
+                self.inferences[x][1] = [
+                    x for x in self.inferences[x][1] if x not in fixed]
 
     def next_color(self):
         "should return next color to consider"
-        self.being_considered = self.being_considered+1
+        self.being_considered = chr(ord(self.being_considered)+1)
 
     # should return total num of tied positions. not all possible positions
     # return len(self.fixed)
@@ -218,7 +205,7 @@ class FBI(Player):
         "should return the num of positions tied to colors"
         count = 0
         for x in range(len(inferences)):
-            # print("color: ", self.inferences[x], " is tied to: ")
+                # print("color: ", self.inferences[x], " is tied to: ")
             for y in range(len(inferences[x])):
                 # print(self.inferences[x][y])
                 count = count+1
