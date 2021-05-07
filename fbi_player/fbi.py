@@ -39,8 +39,8 @@ class FBI(Player):
                                            it the number of guesses made so far.
         """
         # should access guess number from last guess? which can be defaulted to 0
-        self.update(last_response, board_length, colors)
-        guess = self.get_next(board_length, colors)
+        self.update(last_response, board_length)
+        guess = self.get_next(board_length)
         return guess
 
     """
@@ -56,7 +56,7 @@ class FBI(Player):
             - Returns the second color which is not yet fixed
     """
 
-    def get_next(self, board_length, colors):
+    def get_next(self, board_length):
         """
         Returns next guess
 
@@ -73,7 +73,7 @@ class FBI(Player):
             elif len(self.inferences) == board_length:
                 new_trial.append(second_unfixed(self.inferences))
             else:
-                new_trial.append(colors[self.being_considered])
+                new_trial.append(self.being_considered)
         return new_trial
 
     def tied(self, pos):
@@ -210,7 +210,7 @@ class FBI(Player):
 
     def next_color(self):
         "should return next color to consider"
-        self.being_considered = self.being_considered+1
+        self.being_considered = self.being_considered + 1
 
     # should return total num of tied positions. not all possible positions
     # return len(self.fixed)
