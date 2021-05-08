@@ -2,7 +2,8 @@ from player import *
 from enum import IntEnum
 from main import *
 
-
+# Improvements to make
+# If the only unfixed colors in inferences are all the same color, just assign unique positions from their lists
 class KB(IntEnum):
     Color = 0
     Positions = 1
@@ -40,12 +41,18 @@ class FBI(Player):
             the right color, but in the wrong location for the previous guess. The third element
             it the number of guesses made so far.
         """
+        if last_response[2] == 0:
+            self.inferences = []
+            self.being_considered = "A"
+            self.being_fixed = -1
+            self.fixed = []
+            self.first_bull = False
         # should access guess number from last guess? which can be defaulted to 0
         if last_response[2] != 0:
             self.update(last_response, board_length, colors)
         guess = self.get_next(board_length, colors)
         return guess
-# GHBABBIJ
+# 
     def get_next(self, board_length, colors):
         """
         Returns next guess
@@ -55,16 +62,17 @@ class FBI(Player):
         trial - Previous guess
         """
         new_trial = []
-        if len(self.inferences) == board_length:
+        if len(self.inferences) == board_length and len(self.fixed) != board_length:
             self.second_unfixed(board_length) # Set being considered to second_unfixed
         for i in range(board_length):
             if self.tied(i):
                 new_trial.append(self.its_color(i))
-            elif i == self.next_pos(self.being_fixed):
+            elif self.being_fixed < len(self.inferences) and i == self.next_pos(self.being_fixed):
                 new_trial.append(self.inferences[self.being_fixed][KB.Color])
             else:
                 new_trial.append(self.being_considered)
-        return new_trial
+
+        return ''.join(new_trial)
 
     def tied(self, pos):
         """
@@ -113,10 +121,19 @@ class FBI(Player):
         being_considered is not a color that isnt part of the code
         """
         if len(self.fixed) == board_length - 1:
-            return "A"
+            self.being_considered = self.inferences[self.being_fixed][KB.Color]
+            return
+
         scnd_unfixed = self.being_fixed + 1
-        while len(self.inferences[scnd_unfixed][KB.Positions]) == 1:
+        if scnd_unfixed >= len(self.inferences):
+            self.being_considered = self.inferences[self.being_fixed][KB.Color]
+            return
+
+        while self.inferences[scnd_unfixed][KB.Color] == self.inferences[self.being_fixed][KB.Color] or len(self.inferences[scnd_unfixed][KB.Positions]) == 1:
             scnd_unfixed += 1
+            if scnd_unfixed >= len(self.inferences):
+                self.being_considered = self.inferences[self.being_fixed][KB.Color]
+                return
         self.being_considered = self.inferences[scnd_unfixed][KB.Color]
 
     """
@@ -140,7 +157,9 @@ class FBI(Player):
 
             # - len(self.fixed) because those wil always return bulls that dont indicate a new color, 
             #  and -1 for the colors which we are fixing since it will always return a bull or cow
-            gain = (bulls+cows) - len(self.fixed) - 1 
+            gain = (bulls+cows) - len(self.fixed)
+            if self.being_fixed < len(self.inferences):
+                gain -= 1 
 
         # add positions to inferences here
         # if gain was 0, no positons or elements will be added
@@ -151,21 +170,23 @@ class FBI(Player):
             if cows == 0:
                 # Begin
                 if self.being_fixed != -1:
-                    self.fix(self.being_fixed)
-                    # inc self.being_fixed by 1
-                    if(self.being_fixed < len(self.inferences)):
-                        self.bump()
+                    if self.being_fixed < len(self.inferences) - gain:
+                        self.fix()
+                        if self.being_fixed < len(self.inferences):
+                            self.bump()
             elif cows == 1:
                 # delete current position of being_fixed
                 if(self.being_fixed != -1):
                     self.delete(0)
                 # self.delete(self.being_fixed, self.being_fixed)
             elif cows == 2:
+                if len(self.fixed) == board_length:
+                    return
                 self.fix_1()
             else:
-                print("error")
+                print("Cows:", cows, self.inferences)
 
-        self.clean_up(self.inferences)
+        self.clean_up()
         self.next_color()
         if not self.first_bull and bulls > 0:
             self.first_bull = True
@@ -180,10 +201,12 @@ class FBI(Player):
             # if there are reference issues, import copy and use copy.deepcopy
             self.inferences.append(list_item)
         # when items are added on the list for the first time, increase self.being_fixed
-        if(self.being_fixed == -1 and gain != 0):
+        if self.being_fixed == -1 and gain != 0:
             self.bump()
 
-    def fix(self, being_fixed):
+    def fix(self):
+        if self.being_fixed >= len(self.inferences):
+            return
         "should put beingfixed in its possible position and deletes appropriate position from other lists"
         fixed_position = [self.inferences[self.being_fixed][KB.Positions][0]] # list with first position
         self.inferences[self.being_fixed][KB.Positions] = fixed_position
@@ -192,6 +215,8 @@ class FBI(Player):
     def bump(self):
         "get the next beingfixed "# TO DO MAKE THIS A LOOP THAT CHECKS TO SEE IF BEING_FIXED + 1 WAS ALREADY FIXED
         self.being_fixed = self.being_fixed+1 
+        if self.being_fixed >= len(self.inferences):
+            return
         while len(self.inferences[self.being_fixed][KB.Positions]) == 1:
             self.being_fixed += 1
             if self.being_fixed == len(self.inferences):
@@ -205,6 +230,9 @@ class FBI(Player):
 
     # Sensible Implementation of delete
     def delete(self, i):
+        if self.being_fixed >= len(self.inferences):
+            return
+
         del self.inferences[self.being_fixed][KB.Positions][i] # I needed this to delete by index not by value so I changed it to this
         if len(self.inferences[self.being_fixed][KB.Positions]) == 1:
             self.fixed.append(self.inferences[self.being_fixed][KB.Positions][0])
@@ -215,6 +243,9 @@ class FBI(Player):
         """
             Fix the position of the color being_considered to the current position of the color being_fixed
         """
+        if self.being_fixed >= len(self.inferences):
+            return
+
         fixed_position = [self.inferences[self.being_fixed][KB.Positions][0]]
 
         # index -1 works because we only enter this method if we just expanded our inferences by adding
@@ -233,11 +264,16 @@ class FBI(Player):
     # This is a huge bottleneck O(n^3)
     # This can be improved upon if we store possible positions as sets O(n^3) -> O(n^2)
     # This is because if x not in self.fixed is O(n) since its a list, its O(1) with sets
-    def clean_up(self, inferences):
+    def clean_up(self):
         "remove positions that have been fixed from possible positions for all colors"
         for i in range(len(self.inferences)):
             if(len(self.inferences[i][KB.Positions]) != 1):
                 self.inferences[i][KB.Positions] = [x for x in self.inferences[i][KB.Positions] if x not in self.fixed]
+                if len(self.inferences[i][KB.Positions]) == 1 and self.inferences[i][KB.Positions][0] not in self.fixed:
+                    self.fixed.append(self.inferences[i][KB.Positions][0])
+                    if i == self.being_fixed:
+                        self.bump()
+
 
     def next_color(self):
         "should return next color to consider"
@@ -245,12 +281,12 @@ class FBI(Player):
 
     # should return total num of tied positions. not all possible positions
     # return len(self.fixed)
-    def num_fix(self, inferences):
+    def num_fix(self):
         "should return the num of positions tied to colors"
         count = 0
-        for x in range(len(inferences)):
+        for x in range(len(self.inferences)):
                 # print("color: ", self.inferences[x], " is tied to: ")
-            for y in range(len(inferences[x])):
+            for y in range(len(self.inferences[x])):
                 # print(self.inferences[x][y])
                 count = count+1
 

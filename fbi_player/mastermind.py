@@ -51,6 +51,7 @@ class Round:
         self.board_length = board_length
         self.colors = colors
         self.answer = answer
+        print(self.answer)
         self.scsa_name = scsa_name
         self.guesses = 0
         self.guess_cutoff = guess_cutoff
@@ -151,7 +152,6 @@ class Round:
                                      returns number of correct pegs, number of correct colors in wrong position, 
                                      and number of guesses so far otherwise.
         """
-
         if guess == self.answer:
 
             response = "win"
