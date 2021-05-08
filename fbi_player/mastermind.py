@@ -189,7 +189,7 @@ class Round:
 
             self.guesses += 1
 
-            duration = end - start
+            duration = 0 #end - start removed the actual duration because if I debug, it counts the seconds while the code is paused so I cannot test with it.
 
             self.time_used += duration
 
@@ -278,7 +278,7 @@ class Mastermind:
             result, guesses = round.play_round(player)
             end = time.time()
 
-            duration = end - start
+            duration = 0 #end - start removed the actual duration because if I debug, it counts the seconds while the code is paused so I cannot test with it.
             
             self.time_used += duration
 

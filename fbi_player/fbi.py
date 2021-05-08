@@ -1,9 +1,9 @@
 from player import *
-import enum
+from enum import IntEnum
 from main import *
 
 
-class KB(enum.Enum):
+class KB(IntEnum):
     Color = 0
     Positions = 1
 
@@ -25,6 +25,9 @@ class FBI(Player):
         # list of positions that have been fixed
         self.fixed = []
 
+        #
+        self.first_bull = False 
+
     def make_guess(self, board_length, colors, scsa, last_response):
         """Makes a guess of the secret code for Mastermind
 
@@ -38,10 +41,11 @@ class FBI(Player):
             it the number of guesses made so far.
         """
         # should access guess number from last guess? which can be defaulted to 0
-        self.update(last_response, board_length, colors)
+        if last_response[2] != 0:
+            self.update(last_response, board_length, colors)
         guess = self.get_next(board_length, colors)
         return guess
-
+# GHBABBIJ
     def get_next(self, board_length, colors):
         """
         Returns next guess
@@ -51,15 +55,15 @@ class FBI(Player):
         trial - Previous guess
         """
         new_trial = []
+        if len(self.inferences) == board_length:
+            self.second_unfixed(board_length) # Set being considered to second_unfixed
         for i in range(board_length):
             if self.tied(i):
                 new_trial.append(self.its_color(i))
             elif i == self.next_pos(self.being_fixed):
-                new_trial.append(self.being_fixed)
-            elif len(self.inferences) == board_length:
-                new_trial.append(second_unfixed(self.inferences))
+                new_trial.append(self.inferences[self.being_fixed][KB.Color])
             else:
-                new_trial.append(colors[self.being_considered])
+                new_trial.append(self.being_considered)
         return new_trial
 
     def tied(self, pos):
@@ -101,9 +105,19 @@ class FBI(Player):
             return -1
         return self.inferences[being_fixed][KB.Positions][0]
 
-    # should return second pos from inf that is not fixed cant; increase being_fixed by 1
-    def second_unfixed(self):
-        return being_fixed + 1
+    def second_unfixed(self, board_length):
+        """
+        Sets being_considered to the second color that hasn't been fixed yet
+        Which is useful because we call this once inferences is full
+        So when we end up calling fix_1 with inferences full because 
+        being_considered is not a color that isnt part of the code
+        """
+        if len(self.fixed) == board_length - 1:
+            return "A"
+        scnd_unfixed = self.being_fixed + 1
+        while len(self.inferences[scnd_unfixed][KB.Positions]) == 1:
+            scnd_unfixed += 1
+        self.being_considered = self.inferences[scnd_unfixed][KB.Color]
 
     """
     update method updates inferences
@@ -117,59 +131,71 @@ class FBI(Player):
     def update(self, last_response, board_length, colors):
         bulls, cows, guesses = last_response
 
+
         if(self.being_fixed == -1):
-            # if no elements have been added to the inferences
-            gain = (bulls+cows) - self.num_fix(self.inferences)
+            # if no elements have been added to the inferences, there will be no self.fixed and nothing being_fixed
+            gain = (bulls+cows)
         else:
             # there is at least one color in inferences and it is being fixed
-            gain = (bulls+cows) - self.num_fix(self.inferences)
+
+            # - len(self.fixed) because those wil always return bulls that dont indicate a new color, 
+            #  and -1 for the colors which we are fixing since it will always return a bull or cow
+            gain = (bulls+cows) - len(self.fixed) - 1 
 
         # add positions to inferences here
         # if gain was 0, no positons or elements will be added
-        self.addlists(self, gain, board_length, self.being_considered)
+        if len(self.inferences) != board_length:
+            self.addlists(gain, board_length)
 
-        if cows == 0:
-            # Begin
-            if self.being_fixed != -1:
-                self.fix(self.being_fixed)
-                # inc self.being_fixed by 1
-                if(self.being_fixed < len(self.inferences)):
-                    self.bump(self.being_fixed)
-        elif cows == 1:
-            # delete current position of being_fixed
-            if(self.being_fixed != -1):
-                self.delete(self.inferences[self.being_considered][0])
-            # self.delete(self.being_fixed, self.being_fixed)
-        elif cows == 2:
-            self.fix_1(self.being_considered, self.being_fixed)
-        else:
-            print("error")
+        if self.first_bull: # might need to change to if self.being_fixed != -1
+            if cows == 0:
+                # Begin
+                if self.being_fixed != -1:
+                    self.fix(self.being_fixed)
+                    # inc self.being_fixed by 1
+                    if(self.being_fixed < len(self.inferences)):
+                        self.bump()
+            elif cows == 1:
+                # delete current position of being_fixed
+                if(self.being_fixed != -1):
+                    self.delete(0)
+                # self.delete(self.being_fixed, self.being_fixed)
+            elif cows == 2:
+                self.fix_1()
+            else:
+                print("error")
 
         self.clean_up(self.inferences)
         self.next_color()
+        if not self.first_bull and bulls > 0:
+            self.first_bull = True
 
     # Takeaways: We only add lists when we want to take something that is being considered and start fixing it
-    def addlists(self, gain, board_length, color):
+    def addlists(self, gain, board_length):
         # prepare a list item, which is a color and list of all colors*
         # add that color for the number of range(gain)
         # adding extra positions is okay here. it is taken care of by clean_up
         for i in range(gain):
-            list_item = [color, list(range(0, board_length))]
+            list_item = [self.being_considered, list(range(0, board_length))] # Quick change I switched from passing self.being_considered as a parameter to just accessing the data member
             # if there are reference issues, import copy and use copy.deepcopy
             self.inferences.append(list_item)
         # when items are added on the list for the first time, increase self.being_fixed
         if(self.being_fixed == -1 and gain != 0):
-            self.bump(self.being_fixed)
+            self.bump()
 
     def fix(self, being_fixed):
         "should put beingfixed in its possible position and deletes appropriate position from other lists"
-        for x in range(len(self.inferences[self.being_fixed][KB.Positions])-1):
-            self.inferences[self.being_fixed][KB.Positions].pop(-1)
-        self.fixed.append(self.inferences[self.being_fixed][KB.Positions][0])
+        fixed_position = [self.inferences[self.being_fixed][KB.Positions][0]] # list with first position
+        self.inferences[self.being_fixed][KB.Positions] = fixed_position
+        self.fixed.append(fixed_position[0])
 
-    def bump(self, being_fixed):
-        "get the next beingfixed "
-        self.being_fixed = self.being_fixed+1
+    def bump(self):
+        "get the next beingfixed "# TO DO MAKE THIS A LOOP THAT CHECKS TO SEE IF BEING_FIXED + 1 WAS ALREADY FIXED
+        self.being_fixed = self.being_fixed+1 
+        while len(self.inferences[self.being_fixed][KB.Positions]) == 1:
+            self.being_fixed += 1
+            if self.being_fixed == len(self.inferences):
+                return
 
     # RAO'S IMPLEMENTATION
     # def delete(self, i, j):
@@ -179,21 +205,39 @@ class FBI(Player):
 
     # Sensible Implementation of delete
     def delete(self, i):
-        self.inferences[self.being_fixed][1].remove(i)
+        del self.inferences[self.being_fixed][KB.Positions][i] # I needed this to delete by index not by value so I changed it to this
+        if len(self.inferences[self.being_fixed][KB.Positions]) == 1:
+            self.fixed.append(self.inferences[self.being_fixed][KB.Positions][0])
+            self.bump()
 
-    # ip
-    def fix_1(self, i, j):
-        "fix color i in the current position of color j"
-        self.inferences[i][KB.Positions][0] = self.inferences[j][KB.Positions][0]
-        for x in range(len(self.inferences[i][KB.Positions])-1):
-            self.inferences[i][KB.Positions].pop(-1)
+    # I removed parameters i and j because they are being_fixed and being_considered which are data members
+    def fix_1(self):
+        """
+            Fix the position of the color being_considered to the current position of the color being_fixed
+        """
+        fixed_position = [self.inferences[self.being_fixed][KB.Positions][0]]
 
+        # index -1 works because we only enter this method if we just expanded our inferences by adding
+        # rows for the color being_considered, and we want to fix the position of one of those colors
+        # Since its at the end of the inferences array, -1 accesses it
+
+        # Find position of color being considered aka first occurences of being_considered in self.inferences that isn't fixed
+        for i in range(len(self.inferences)):
+            if self.inferences[i][KB.Color] == self.being_considered and len(self.inferences[i][KB.Positions]) != 1:
+                idx = i
+                break
+        self.inferences[idx][KB.Positions] = fixed_position 
+        self.fixed.append(fixed_position[0])
+
+
+    # This is a huge bottleneck O(n^3)
+    # This can be improved upon if we store possible positions as sets O(n^3) -> O(n^2)
+    # This is because if x not in self.fixed is O(n) since its a list, its O(1) with sets
     def clean_up(self, inferences):
         "remove positions that have been fixed from possible positions for all colors"
-        for x in range(len(self.inferences)):
-            if(len(self.inferences[x][1]) != 1):
-                self.inferences[x][1] = [
-                    x for x in self.inferences[x][1] if x not in fixed]
+        for i in range(len(self.inferences)):
+            if(len(self.inferences[i][KB.Positions]) != 1):
+                self.inferences[i][KB.Positions] = [x for x in self.inferences[i][KB.Positions] if x not in self.fixed]
 
     def next_color(self):
         "should return next color to consider"
