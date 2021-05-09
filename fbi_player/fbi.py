@@ -23,10 +23,11 @@ class FBI(Player):
         # increase once a position is fixed for a color
         self.being_fixed = -1
 
-        # list of positions that have been fixed
-        self.fixed = []
+        # set of positions that have been fixed
+        # used set because it performs better than list when doing x in s
+        self.fixed = set()
 
-        #
+        # becomes true once first bull is encountered
         self.first_bull = False 
 
     def make_guess(self, board_length, colors, scsa, last_response):
@@ -45,7 +46,7 @@ class FBI(Player):
             self.inferences = []
             self.being_considered = "A"
             self.being_fixed = -1
-            self.fixed = []
+            self.fixed = set()
             self.first_bull = False
         # should access guess number from last guess? which can be defaulted to 0
         if last_response[2] != 0:
@@ -210,7 +211,8 @@ class FBI(Player):
         "should put beingfixed in its possible position and deletes appropriate position from other lists"
         fixed_position = [self.inferences[self.being_fixed][KB.Positions][0]] # list with first position
         self.inferences[self.being_fixed][KB.Positions] = fixed_position
-        self.fixed.append(fixed_position[0])
+        # changed
+        self.fixed.add(fixed_position[0])
 
     def bump(self):
         "get the next beingfixed "# TO DO MAKE THIS A LOOP THAT CHECKS TO SEE IF BEING_FIXED + 1 WAS ALREADY FIXED
@@ -234,8 +236,10 @@ class FBI(Player):
             return
 
         del self.inferences[self.being_fixed][KB.Positions][i] # I needed this to delete by index not by value so I changed it to this
+
         if len(self.inferences[self.being_fixed][KB.Positions]) == 1:
-            self.fixed.append(self.inferences[self.being_fixed][KB.Positions][0])
+            # changed
+            self.fixed.add(self.inferences[self.being_fixed][KB.Positions][0])
             self.bump()
 
     # I removed parameters i and j because they are being_fixed and being_considered which are data members
@@ -258,7 +262,8 @@ class FBI(Player):
                 idx = i
                 break
         self.inferences[idx][KB.Positions] = fixed_position 
-        self.fixed.append(fixed_position[0])
+        # changed
+        self.fixed.add(fixed_position[0])
 
 
     # This is a huge bottleneck O(n^3)
@@ -270,7 +275,8 @@ class FBI(Player):
             if(len(self.inferences[i][KB.Positions]) != 1):
                 self.inferences[i][KB.Positions] = [x for x in self.inferences[i][KB.Positions] if x not in self.fixed]
                 if len(self.inferences[i][KB.Positions]) == 1 and self.inferences[i][KB.Positions][0] not in self.fixed:
-                    self.fixed.append(self.inferences[i][KB.Positions][0])
+                    # changed
+                    self.fixed.add(self.inferences[i][KB.Positions][0])
                     if i == self.being_fixed:
                         self.bump()
 
