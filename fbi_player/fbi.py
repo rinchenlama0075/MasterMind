@@ -181,8 +181,6 @@ class FBI(Player):
                     self.delete(0)
                 # self.delete(self.being_fixed, self.being_fixed)
             elif cows == 2:
-                if len(self.fixed) == board_length:
-                    return
                 self.fix_1()
             else:
                 print("Cows:", cows, self.inferences)
