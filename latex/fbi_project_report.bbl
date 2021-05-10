@@ -1,0 +1,119 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{cms/global//global/global}
+    \entry{rao}{article}{}
+      \name{author}{1}{}{%
+        {{hash=33cc008298644b8197b5701c4840923a}{%
+           family={Rao},
+           familyi={R\bibinitperiod},
+           given={T.\bibnamedelimi Mahadeva},
+           giveni={T\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{33cc008298644b8197b5701c4840923a}
+      \strng{fullhash}{33cc008298644b8197b5701c4840923a}
+      \strng{bibnamehash}{33cc008298644b8197b5701c4840923a}
+      \strng{authorbibnamehash}{33cc008298644b8197b5701c4840923a}
+      \strng{authornamehash}{33cc008298644b8197b5701c4840923a}
+      \strng{authorfullhash}{33cc008298644b8197b5701c4840923a}
+      \field{sortinit}{R}
+      \field{sortinithash}{b9c68a358aea118dfa887b6e902414a7}
+      \true{uniquework}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The game of Mastermind (INVICTA) is played by two persons. It is quite popular and claimed to be quite complex. Recently, we were interested in computerizing this game. This paper summarized the method we discovered and implemented. Our method uses a simple list data structure to represent the knowledge gained. The algorithm was programmed in Pascal on a Burrough B-6800 machine. Some experimental results are presented at the end of the paper.}
+      \field{issn}{0163-5719}
+      \field{journaltitle}{SIGART Bull.}
+      \field{month}{10}
+      \field{number}{82}
+      \field{title}{An Algorithm to Play the Game of Mastermind}
+      \field{year}{1982}
+      \field{pages}{19\bibrangedash 23}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1145/1056602.1056607
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/1056602.1056607
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/1056602.1056607
+      \endverb
+    \endentry
+    \entry{rules}{online}{}
+      \name{author}{1}{}{%
+        {{hash=e29869965c00e278c2abd74d10731c4d}{%
+           family={WebGamesOnline},
+           familyi={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{e29869965c00e278c2abd74d10731c4d}
+      \strng{fullhash}{e29869965c00e278c2abd74d10731c4d}
+      \strng{bibnamehash}{e29869965c00e278c2abd74d10731c4d}
+      \strng{authorbibnamehash}{e29869965c00e278c2abd74d10731c4d}
+      \strng{authornamehash}{e29869965c00e278c2abd74d10731c4d}
+      \strng{authorfullhash}{e29869965c00e278c2abd74d10731c4d}
+      \field{sortinit}{W}
+      \field{sortinithash}{1af34bd8c148ffb32de1494636b49713}
+      \true{uniquework}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Mastermind - Rules of the game}
+      \verb{urlraw}
+      \verb https://www.webgamesonline.com/mastermind/rules.php
+      \endverb
+      \verb{url}
+      \verb https://www.webgamesonline.com/mastermind/rules.php
+      \endverb
+    \endentry
+    \entry{webgames}{online}{}
+      \name{author}{1}{}{%
+        {{hash=2fbf0e7cc81eb522df9068e139481f9e}{%
+           family={webGamesOnline},
+           familyi={w\bibinitperiod}}}%
+      }
+      \strng{namehash}{2fbf0e7cc81eb522df9068e139481f9e}
+      \strng{fullhash}{2fbf0e7cc81eb522df9068e139481f9e}
+      \strng{bibnamehash}{2fbf0e7cc81eb522df9068e139481f9e}
+      \strng{authorbibnamehash}{2fbf0e7cc81eb522df9068e139481f9e}
+      \strng{authornamehash}{2fbf0e7cc81eb522df9068e139481f9e}
+      \strng{authorfullhash}{2fbf0e7cc81eb522df9068e139481f9e}
+      \field{sortinit}{w}
+      \field{sortinithash}{1af34bd8c148ffb32de1494636b49713}
+      \true{uniquework}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Play Mastermind Online}
+      \verb{urlraw}
+      \verb https://www.webgamesonline.com/mastermind/index.php
+      \endverb
+      \verb{url}
+      \verb https://www.webgamesonline.com/mastermind/index.php
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
