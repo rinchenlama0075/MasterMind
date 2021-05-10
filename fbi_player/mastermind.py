@@ -51,7 +51,6 @@ class Round:
         self.board_length = board_length
         self.colors = colors
         self.answer = answer
-        print(self.answer)
         self.scsa_name = scsa_name
         self.guesses = 0
         self.guess_cutoff = guess_cutoff
