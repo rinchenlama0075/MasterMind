@@ -125,6 +125,7 @@ class FBI(Player):
         So when we end up calling fix_1 with inferences full because 
         being_considered is not a color that isnt part of the code
         """
+
         if len(self.fixed) == board_length - 1:
             self.being_considered = self.inferences[self.being_fixed][KB.Color]
             return
@@ -286,6 +287,28 @@ class FBI(Player):
                     if i == self.being_fixed:
                         self.bump()
 
+        # remove duplicate positions as a part of the clean-up
+        i = self.being_fixed
+        while(i < len(self.inferences)-1 and self.inferences[self.being_fixed][KB.Color] == self.inferences[i+1][KB.Color]):
+            if self.inferences[self.being_fixed][KB.Positions][0] in self.inferences[i+1][KB.Positions]:
+                self.inferences[i+1][KB.Positions].remove(
+                    self.inferences[self.being_fixed][KB.Positions][0])
+                if(len(self.inferences[i+1][KB.Positions]) == 1):
+                    self.advance_fix()
+            i += 1
+
+    # Should fix colors with only one position regardless of their place in the inference
+    # should also set being_fixed to whatever should be fixed next
+    def advance_fix(self):
+        for i in range(len(self.inferences)):
+            if(len(self.inferences[i][KB.Positions]) == 1 and self.inferences[i][KB.Positions][0] not in self.fixed):
+                self.fixed.add(self.inferences[i][KB.Positions][0])
+
+        for i in range(len(self.inferences)):
+            if(len(self.inferences[i][KB.Positions]) != 0):
+                self.being_fixed = i
+                break
+
     def next_color(self):
         "should return next color to consider"
         self.being_considered = chr(ord(self.being_considered)+1)
@@ -296,7 +319,7 @@ class FBI(Player):
         "should return the num of positions tied to colors"
         count = 0
         for x in range(len(self.inferences)):
-                # print("color: ", self.inferences[x], " is tied to: ")
+            # print("color: ", self.inferences[x], " is tied to: ")
             for y in range(len(self.inferences[x])):
                 # print(self.inferences[x][y])
                 count = count+1
