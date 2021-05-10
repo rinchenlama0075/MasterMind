@@ -1,6 +1,5 @@
 from player import *
 from enum import IntEnum
-from main import *
 
 # Improvements to make
 # If the only unfixed colors in inferences are all the same color, just assign unique positions from their lists
@@ -24,7 +23,7 @@ class FBI(Player):
         self.being_fixed = -1
 
         # set of positions that have been fixed
-        # used set because it performs better than list when doing x in s
+        # used set because it performs better than list when determing if an object is present within the data structure
         self.fixed = set()
 
         # becomes true once first bull is encountered
@@ -48,23 +47,25 @@ class FBI(Player):
             self.being_fixed = -1
             self.fixed = set()
             self.first_bull = False
-        # should access guess number from last guess? which can be defaulted to 0
+        # Access guess number from last guess. Default guess number value is 0
         if last_response[2] != 0:
             self.update(last_response, board_length, colors)
         guess = self.get_next(board_length, colors)
         return guess
-# 
+ 
     def get_next(self, board_length, colors):
         """
         Returns next guess
 
         Parameters
         ----------
-        trial - Previous guess
+        board_length - Number of pegs of secret code
+        colors - Colors that could be used in the secret code
         """
         new_trial = []
         if len(self.inferences) == board_length and len(self.fixed) != board_length:
-            self.second_unfixed(board_length) # Set being considered to second_unfixed
+            # Set being considered to second_unfixed
+            self.second_unfixed(board_length) 
         for i in range(board_length):
             if self.tied(i):
                 new_trial.append(self.its_color(i))
@@ -137,16 +138,17 @@ class FBI(Player):
                 return
         self.being_considered = self.inferences[scnd_unfixed][KB.Color]
 
-    """
-    update method updates inferences
-    Helper Functions:
-        - self.fix(being_fixed)
-            - 'Fix'es the beingfixed in its next possible position and deletes appropriate position from other lists.
-        - self.bump(being_fixed)
-
-    """
 
     def update(self, last_response, board_length, colors):
+        """
+        update method updates inferences
+        Helper Functions:
+            - self.fix(being_fixed)
+                - 'Fix'es the beingfixed in its next possible position and deletes appropriate position from other lists.
+            - self.bump(being_fixed)
+                - updated the beingfixed value
+
+        """
         bulls, cows, guesses = last_response
 
 
@@ -156,8 +158,8 @@ class FBI(Player):
         else:
             # there is at least one color in inferences and it is being fixed
 
-            # - len(self.fixed) because those wil always return bulls that dont indicate a new color, 
-            #  and -1 for the colors which we are fixing since it will always return a bull or cow
+            # len(self.fixed) because those wil always return bulls that dont indicate a new color, 
+            # and -1 for the colors which we are fixing since it will always return a bull or cow
             gain = (bulls+cows) - len(self.fixed)
             if self.being_fixed < len(self.inferences):
                 gain -= 1 
@@ -167,7 +169,7 @@ class FBI(Player):
         if len(self.inferences) != board_length:
             self.addlists(gain, board_length)
 
-        if self.first_bull: # might need to change to if self.being_fixed != -1
+        if self.first_bull: 
             if cows == 0:
                 # Begin
                 if self.being_fixed != -1:
@@ -179,7 +181,6 @@ class FBI(Player):
                 # delete current position of being_fixed
                 if(self.being_fixed != -1):
                     self.delete(0)
-                # self.delete(self.being_fixed, self.being_fixed)
             elif cows == 2:
                 self.fix_1()
             else:
@@ -196,8 +197,8 @@ class FBI(Player):
         # add that color for the number of range(gain)
         # adding extra positions is okay here. it is taken care of by clean_up
         for i in range(gain):
-            list_item = [self.being_considered, list(range(0, board_length))] # Quick change I switched from passing self.being_considered as a parameter to just accessing the data member
-            # if there are reference issues, import copy and use copy.deepcopy
+            # Quick change I switched from passing self.being_considered as a parameter to just accessing the data member
+            list_item = [self.being_considered, list(range(0, board_length))] 
             self.inferences.append(list_item)
         # when items are added on the list for the first time, increase self.being_fixed
         if self.being_fixed == -1 and gain != 0:
@@ -209,11 +210,10 @@ class FBI(Player):
         "should put beingfixed in its possible position and deletes appropriate position from other lists"
         fixed_position = [self.inferences[self.being_fixed][KB.Positions][0]] # list with first position
         self.inferences[self.being_fixed][KB.Positions] = fixed_position
-        # changed
         self.fixed.add(fixed_position[0])
 
     def bump(self):
-        "get the next beingfixed "# TO DO MAKE THIS A LOOP THAT CHECKS TO SEE IF BEING_FIXED + 1 WAS ALREADY FIXED
+        "get the next beingfixed "
         self.being_fixed = self.being_fixed+1 
         if self.being_fixed >= len(self.inferences):
             return
@@ -232,11 +232,10 @@ class FBI(Player):
     def delete(self, i):
         if self.being_fixed >= len(self.inferences):
             return
-
-        del self.inferences[self.being_fixed][KB.Positions][i] # I needed this to delete by index not by value so I changed it to this
+        # I needed this to delete by index not by value so I changed it to this
+        del self.inferences[self.being_fixed][KB.Positions][i] 
 
         if len(self.inferences[self.being_fixed][KB.Positions]) == 1:
-            # changed
             self.fixed.add(self.inferences[self.being_fixed][KB.Positions][0])
             self.bump()
 
@@ -260,13 +259,11 @@ class FBI(Player):
                 idx = i
                 break
         self.inferences[idx][KB.Positions] = fixed_position 
-        # changed
         self.fixed.add(fixed_position[0])
 
 
-    # This is a huge bottleneck O(n^3)
-    # This can be improved upon if we store possible positions as sets O(n^3) -> O(n^2)
-    # This is because if x not in self.fixed is O(n) since its a list, its O(1) with sets
+    # Changed self.fixed into a set as the condition x not in self.fixed becomes O(1),
+    # rather than O(n) with lists
     def clean_up(self):
         "remove positions that have been fixed from possible positions for all colors"
         for i in range(len(self.inferences)):
@@ -295,126 +292,3 @@ class FBI(Player):
                 count = count+1
 
         return count
-
-    # def evaluate_guess(self, trial):
-    #     print(f"My Next Trial: {trial}")
-    #     print("Enter Bulls >> ", end="")
-    #     bulls = input()
-    #     print("Enter Cows >> ", end="")
-    #     cows = input()
-    #     return bulls, cows
-
-# def MasterMind(N, M):
-#     """
-#     MasterMind main method
-
-#     Parameters
-#     ----------
-#     N - Number of positions/board size
-#     M - Number of colors
-#         Colors are represented as (1, 2, ..., M)
-#     """
-
-#     trial = []
-#     inferences = []
-#     being_considered = "A"
-#     being_fixed = None
-#     # setup() TODO, inialize first trial, reset knowledge base
-#     bulls = 0
-#     cows = 0
-#     bulls, cows = Try(trial)
-#     gameover = False
-#     while bulls < N and not gameover:
-#         # Update(inferences) (updates inferences based on number of bulls, cows, and previous trial)
-#         # Getnext(trial, inferences, Being-Considered, Being-Fixed) (updates trial based on new inferences)
-#         # if Numfix(inferences) == N: (goal test)
-#             #gameover = True
-#         # else:
-#             #  Try(trial)
-#     print(trial)
-
-
-# def main():
-#     help(MasterMind)
-
-
-# if __name__ == "__main__":
-#     main()
-
-# sometimes he uses ":=" to mean assignment and "=" to mean ==, but sometimes he also uses "=" to mean assignment too oh wait I mean he uses <> to mean == but will use either := or = for assignment
-if __name__ == "__main__":
-    main()
-
-
-def main():
-    if len(sys.argv) != 6:
-
-        print("Usage: python3 main.py <board length> <num colors> <player name> <scsa name> <num rounds>")
-
-        sys.exit(1)
-
-    board_length = int(sys.argv[1])
-    num_colors = int(sys.argv[2])
-    player_name = sys.argv[3]
-    scsa_name = sys.argv[4]
-    num_rounds = int(sys.argv[5])
-
-    if player_name == "RandomFolks":
-
-        player = RandomFolks()
-
-    elif player_name == "Boring":
-
-        player = Boring()
-
-    elif player_name == "FBI":
-
-        player = FBI()
-
-    else:
-
-        print("Unrecognized player.")
-        sys.exit(1)
-
-    if scsa_name == "InsertColors":
-
-        scsa = InsertColors()
-
-    elif scsa_name == "TwoColor":
-
-        scsa = TwoColor()
-
-    elif scsa_name == "ABColor":
-
-        scsa = ABColor()
-
-    elif scsa_name == "TwoColorAlternating":
-
-        scsa = TwoColorAlternating()
-
-    elif scsa_name == "OnlyOnce":
-
-        scsa = OnlyOnce()
-
-    elif scsa_name == "FirstLast":
-
-        scsa = FirstLast()
-
-    elif scsa_name == "UsuallyFewer":
-
-        scsa = UsuallyFewer()
-
-    elif scsa_name == "PreferFewer":
-
-        scsa = PreferFewer()
-
-    else:
-
-        print("Unrecognized SCSA.")
-        sys.exit(1)
-
-    colors = [chr(i) for i in range(65, 91)][:num_colors]
-
-    mastermind = Mastermind(board_length, colors)
-
-    mastermind.play_tournament(player, scsa, num_rounds)
