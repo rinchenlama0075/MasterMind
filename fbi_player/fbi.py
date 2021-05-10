@@ -1,8 +1,6 @@
 from player import *
 from enum import IntEnum
 
-# Improvements to make
-# If the only unfixed colors in inferences are all the same color, just assign unique positions from their lists
 class KB(IntEnum):
     Color = 0
     Positions = 1
