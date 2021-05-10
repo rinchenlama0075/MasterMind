@@ -44,39 +44,40 @@
   <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>assignment_2.bcf</file>
+      <file>fbi_project_report.bcf</file>
     </provides>
     <requires type="dynamic">
-      <file>assignment_2.bbl</file>
+      <file>fbi_project_report.bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
       <file>blx-compat.def</file>
       <file>biblatex.def</file>
-      <file>standard.bbx</file>
-      <file>numeric.bbx</file>
-      <file>authoryear.cbx</file>
+      <file>chicago-notes.bbx</file>
+      <file>chicago-notes.cbx</file>
       <file>biblatex.cfg</file>
       <file>english.lbx</file>
+      <file>american.lbx</file>
+      <file>cms-american.lbx</file>
     </requires>
   </internal>
   <external package="biblatex" priority="5" active="0">
     <generic>biber</generic>
     <cmdline>
       <binary>biber</binary>
-      <infile>assignment_2</infile>
+      <infile>fbi_project_report</infile>
     </cmdline>
     <input>
-      <file>assignment_2.bcf</file>
+      <file>fbi_project_report.bcf</file>
     </input>
     <output>
-      <file>assignment_2.bbl</file>
+      <file>fbi_project_report.bbl</file>
     </output>
     <provides type="dynamic">
-      <file>assignment_2.bbl</file>
+      <file>fbi_project_report.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>assignment_2.bcf</file>
+      <file>fbi_project_report.bcf</file>
     </requires>
     <requires type="editable">
       <file>bibliography.bib</file>

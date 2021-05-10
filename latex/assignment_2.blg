@@ -1,9 +1,0 @@
-[0] Config.pm:304> INFO - This is Biber 2.14
-[0] Config.pm:307> INFO - Logfile is 'assignment_2.blg'
-[126] biber-darwin:322> INFO - === Sat Feb 20, 2021, 19:45:43
-[143] Biber.pm:415> INFO - Reading 'assignment_2.bcf'
-[248] Biber.pm:943> INFO - Found 0 citekeys in bib section 0
-[253] Utils.pm:304> WARN - The file 'assignment_2.bcf' does not contain any citations!
-[262] bbl.pm:652> INFO - Writing 'assignment_2.bbl' with encoding 'UTF-8'
-[262] bbl.pm:755> INFO - Output to assignment_2.bbl
-[263] Biber.pm:128> INFO - WARNINGS: 1
