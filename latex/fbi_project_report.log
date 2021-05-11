@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  10 MAY 2021 20:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  10 MAY 2021 20:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -468,17 +468,34 @@ Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 \algorithmicindent=\skip78
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+Package: pdfpages 2020/01/28 v0.5q Insert pages of external PDF documents (AM)
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2018/04/12 v2.0h eso-pic (RN)
+ (/usr/local/texlive/2020/texmf-dist/tex/generic/atbegshi/atbegshi.sty
+Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
+ (/usr/local/texlive/2020/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+) (/usr/local/texlive/2020/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
+)))
+\AM@pagewidth=\dimen283
+\AM@pageheight=\dimen284
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/pdfpages/pppdftex.def
+File: pppdftex.def 2020/01/28 v0.5q Pdfpages driver for pdfTeX (AM)
+)
+\AM@pagebox=\box71
+\AM@global@opts=\toks41
+\AM@pagecnt=\count302
+\AM@toc@title=\toks42
+\c@AM@survey=\count303
+\AM@templatesizebox=\box72
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex-chicago/biblatex-chicago.sty
 Package: biblatex-chicago 2018/01/10 v 3.10 biblatex style
  (/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2019/12/01 v3.14 programmable bibliographies (PK/MW)
  (/usr/local/texlive/2020/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
 Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO)
- (/usr/local/texlive/2020/texmf-dist/tex/generic/infwarerr/infwarerr.sty
-Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-) (/usr/local/texlive/2020/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
-Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
-)
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
@@ -488,54 +505,54 @@ Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
 )) (/usr/local/texlive/2020/texmf-dist/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count302
+\lrq@indent=\count304
  (/usr/local/texlive/2020/texmf-dist/tex/latex/logreq/logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
 )) (/usr/local/texlive/2020/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-\c@tabx@nest=\count303
-\c@listtotal=\count304
-\c@listcount=\count305
-\c@liststart=\count306
-\c@liststop=\count307
-\c@citecount=\count308
-\c@citetotal=\count309
-\c@multicitecount=\count310
-\c@multicitetotal=\count311
-\c@instcount=\count312
-\c@maxnames=\count313
-\c@minnames=\count314
-\c@maxitems=\count315
-\c@minitems=\count316
-\c@citecounter=\count317
-\c@maxcitecounter=\count318
-\c@savedcitecounter=\count319
-\c@uniquelist=\count320
-\c@uniquename=\count321
-\c@refsection=\count322
-\c@refsegment=\count323
-\c@maxextratitle=\count324
-\c@maxextratitleyear=\count325
-\c@maxextraname=\count326
-\c@maxextradate=\count327
-\c@maxextraalpha=\count328
-\c@abbrvpenalty=\count329
-\c@highnamepenalty=\count330
-\c@lownamepenalty=\count331
-\c@maxparens=\count332
-\c@parenlevel=\count333
-\blx@tempcnta=\count334
-\blx@tempcntb=\count335
-\blx@tempcntc=\count336
-\blx@maxsection=\count337
-\blx@maxsegment@0=\count338
-\blx@notetype=\count339
-\blx@parenlevel@text=\count340
-\blx@parenlevel@foot=\count341
-\blx@sectionciteorder@0=\count342
-\blx@entrysetcounter=\count343
+\c@tabx@nest=\count305
+\c@listtotal=\count306
+\c@listcount=\count307
+\c@liststart=\count308
+\c@liststop=\count309
+\c@citecount=\count310
+\c@citetotal=\count311
+\c@multicitecount=\count312
+\c@multicitetotal=\count313
+\c@instcount=\count314
+\c@maxnames=\count315
+\c@minnames=\count316
+\c@maxitems=\count317
+\c@minitems=\count318
+\c@citecounter=\count319
+\c@maxcitecounter=\count320
+\c@savedcitecounter=\count321
+\c@uniquelist=\count322
+\c@uniquename=\count323
+\c@refsection=\count324
+\c@refsegment=\count325
+\c@maxextratitle=\count326
+\c@maxextratitleyear=\count327
+\c@maxextraname=\count328
+\c@maxextradate=\count329
+\c@maxextraalpha=\count330
+\c@abbrvpenalty=\count331
+\c@highnamepenalty=\count332
+\c@lownamepenalty=\count333
+\c@maxparens=\count334
+\c@parenlevel=\count335
+\blx@tempcnta=\count336
+\blx@tempcntb=\count337
+\blx@tempcntc=\count338
+\blx@maxsection=\count339
+\blx@maxsegment@0=\count340
+\blx@notetype=\count341
+\blx@parenlevel@text=\count342
+\blx@parenlevel@foot=\count343
+\blx@sectionciteorder@0=\count344
+\blx@entrysetcounter=\count345
 \labelnumberwidth=\skip79
 \labelalphawidth=\skip80
 \biblabelsep=\skip81
@@ -547,9 +564,9 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 \blx@bcfin=\read3
 \blx@bcfout=\write4
 \blx@langwohyphens=\language86
-\c@mincomprange=\count344
-\c@maxcomprange=\count345
-\c@mincompwidth=\count346
+\c@mincomprange=\count346
+\c@maxcomprange=\count347
+\c@mincompwidth=\count348
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/blx-dm.def
@@ -559,74 +576,74 @@ Package biblatex Info: Trying to load biblatex style data model...
 Package biblatex Info: ... file 'chicago-notes.dbx' not found.
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count347
-\c@savedafterword=\count348
-\c@annotator=\count349
-\c@savedannotator=\count350
-\c@author=\count351
-\c@savedauthor=\count352
-\c@bookauthor=\count353
-\c@savedbookauthor=\count354
-\c@commentator=\count355
-\c@savedcommentator=\count356
-\c@editor=\count357
-\c@savededitor=\count358
-\c@editora=\count359
-\c@savededitora=\count360
-\c@editorb=\count361
-\c@savededitorb=\count362
-\c@editorc=\count363
-\c@savededitorc=\count364
-\c@foreword=\count365
-\c@savedforeword=\count366
-\c@holder=\count367
-\c@savedholder=\count368
-\c@introduction=\count369
-\c@savedintroduction=\count370
-\c@namea=\count371
-\c@savednamea=\count372
-\c@nameb=\count373
-\c@savednameb=\count374
-\c@namec=\count375
-\c@savednamec=\count376
-\c@translator=\count377
-\c@savedtranslator=\count378
-\c@shortauthor=\count379
-\c@savedshortauthor=\count380
-\c@shorteditor=\count381
-\c@savedshorteditor=\count382
-\c@labelname=\count383
-\c@savedlabelname=\count384
-\c@institution=\count385
-\c@savedinstitution=\count386
-\c@lista=\count387
-\c@savedlista=\count388
-\c@listb=\count389
-\c@savedlistb=\count390
-\c@listc=\count391
-\c@savedlistc=\count392
-\c@listd=\count393
-\c@savedlistd=\count394
-\c@liste=\count395
-\c@savedliste=\count396
-\c@listf=\count397
-\c@savedlistf=\count398
-\c@location=\count399
-\c@savedlocation=\count400
-\c@organization=\count401
-\c@savedorganization=\count402
-\c@origlocation=\count403
-\c@savedoriglocation=\count404
-\c@origpublisher=\count405
-\c@savedorigpublisher=\count406
-\c@publisher=\count407
-\c@savedpublisher=\count408
-\c@language=\count409
-\c@savedlanguage=\count410
-\c@origlanguage=\count411
-\c@savedoriglanguage=\count412
-\c@pageref=\count413
-\c@savedpageref=\count414
+\c@afterword=\count349
+\c@savedafterword=\count350
+\c@annotator=\count351
+\c@savedannotator=\count352
+\c@author=\count353
+\c@savedauthor=\count354
+\c@bookauthor=\count355
+\c@savedbookauthor=\count356
+\c@commentator=\count357
+\c@savedcommentator=\count358
+\c@editor=\count359
+\c@savededitor=\count360
+\c@editora=\count361
+\c@savededitora=\count362
+\c@editorb=\count363
+\c@savededitorb=\count364
+\c@editorc=\count365
+\c@savededitorc=\count366
+\c@foreword=\count367
+\c@savedforeword=\count368
+\c@holder=\count369
+\c@savedholder=\count370
+\c@introduction=\count371
+\c@savedintroduction=\count372
+\c@namea=\count373
+\c@savednamea=\count374
+\c@nameb=\count375
+\c@savednameb=\count376
+\c@namec=\count377
+\c@savednamec=\count378
+\c@translator=\count379
+\c@savedtranslator=\count380
+\c@shortauthor=\count381
+\c@savedshortauthor=\count382
+\c@shorteditor=\count383
+\c@savedshorteditor=\count384
+\c@labelname=\count385
+\c@savedlabelname=\count386
+\c@institution=\count387
+\c@savedinstitution=\count388
+\c@lista=\count389
+\c@savedlista=\count390
+\c@listb=\count391
+\c@savedlistb=\count392
+\c@listc=\count393
+\c@savedlistc=\count394
+\c@listd=\count395
+\c@savedlistd=\count396
+\c@liste=\count397
+\c@savedliste=\count398
+\c@listf=\count399
+\c@savedlistf=\count400
+\c@location=\count401
+\c@savedlocation=\count402
+\c@organization=\count403
+\c@savedorganization=\count404
+\c@origlocation=\count405
+\c@savedoriglocation=\count406
+\c@origpublisher=\count407
+\c@savedorigpublisher=\count408
+\c@publisher=\count409
+\c@savedpublisher=\count410
+\c@language=\count411
+\c@savedlanguage=\count412
+\c@origlanguage=\count413
+\c@savedoriglanguage=\count414
+\c@pageref=\count415
+\c@savedpageref=\count416
 \shorthandwidth=\skip87
 \shortjournalwidth=\skip88
 \shortserieswidth=\skip89
@@ -650,27 +667,27 @@ Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/biblatex.def
 File: biblatex.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
-\c@textcitecount=\count415
-\c@textcitetotal=\count416
-\c@textcitemaxnames=\count417
-\c@biburlbigbreakpenalty=\count418
-\c@biburlbreakpenalty=\count419
-\c@biburlnumpenalty=\count420
-\c@biburlucpenalty=\count421
-\c@biburllcpenalty=\count422
+\c@textcitecount=\count417
+\c@textcitetotal=\count418
+\c@textcitemaxnames=\count419
+\c@biburlbigbreakpenalty=\count420
+\c@biburlbreakpenalty=\count421
+\c@biburlnumpenalty=\count422
+\c@biburlucpenalty=\count423
+\c@biburllcpenalty=\count424
 \biburlbigskip=\muskip18
 \biburlnumskip=\muskip19
 \biburlucskip=\muskip20
 \biburllcskip=\muskip21
-\c@smartand=\count423
+\c@smartand=\count425
 )
 Package biblatex Info: Trying to load bibliography style 'chicago-notes'...
 Package biblatex Info: ... file 'chicago-notes.bbx' found.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex-chicago/chicago-notes.bbx
 File: chicago-notes.bbx 2018/01/11 v 3.10 biblatex bibliography style
 \lositemsep=\skip101
-\c@bbx:relatedcount=\count424
-\c@bbx:relatedtotal=\count425
+\c@bbx:relatedcount=\count426
+\c@bbx:relatedtotal=\count427
 )
 Package biblatex Info: Trying to load citation style 'chicago-notes'...
 Package biblatex Info: ... file 'chicago-notes.cbx' found.
@@ -697,25 +714,25 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... none found.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count426
-\l__pdf_internal_box=\box71
+\l__kernel_color_stack_int=\count428
+\l__pdf_internal_box=\box73
 ) (/Users/chen/Desktop/school_work/hunter/spring_21/csci_350/project/MasterMind/latex/fbi_project_report.aux)
 \openout1 = `fbi_project_report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -753,17 +770,17 @@ LaTeX Font Info:    ... okay on input line 53.
 
 ABD: EveryShipout initializing macros (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count427
-\scratchdimen=\dimen283
-\scratchbox=\box72
-\nofMPsegments=\count428
-\nofMParguments=\count429
-\everyMPshowfont=\toks41
-\MPscratchCnt=\count430
-\MPscratchDim=\dimen284
-\MPnumerator=\count431
-\makeMPintoPDFobject=\count432
-\everyMPtoPDFconversion=\toks42
+\scratchcounter=\count429
+\scratchdimen=\dimen285
+\scratchbox=\box74
+\nofMPsegments=\count430
+\nofMParguments=\count431
+\everyMPshowfont=\toks43
+\MPscratchCnt=\count432
+\MPscratchDim=\dimen286
+\MPnumerator=\count433
+\makeMPintoPDFobject=\count434
+\everyMPtoPDFconversion=\toks44
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
  (/usr/local/texlive/2020/texmf-dist/tex/latex/grfext/grfext.sty
@@ -778,6 +795,14 @@ Package grfext Info: Graphics extension search list:
  (/usr/local/texlive/2020/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
+\AtBeginShipoutBox=\box75
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+)
 Package biblatex Info: Trying to load language 'english' -> 'cms-american'...
 Package biblatex Info: ... file 'cms-american.lbx' found.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex-chicago/cms-american.lbx
@@ -804,116 +829,147 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'fbi_project_report.bbl' found.
  (/Users/chen/Desktop/school_work/hunter/spring_21/csci_350/project/MasterMind/latex/fbi_project_report.bbl)
-Package biblatex Info: Reference section=0 on input line 53.
-Package biblatex Info: Reference segment=0 on input line 53.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 54.
+Package biblatex Info: Reference section=0 on input line 55.
+Package biblatex Info: Reference segment=0 on input line 55.
+<cover_page.pdf, id=4, 614.295pt x 794.97pt>
+File: cover_page.pdf Graphic file (type pdf)
+<use cover_page.pdf>
+Package pdftex.def Info: cover_page.pdf  used on input line 56.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+File: cover_page.pdf Graphic file (type pdf)
+<use cover_page.pdf>
+Package pdftex.def Info: cover_page.pdf  used on input line 56.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+<cover_page.pdf, id=7, page=1, 614.295pt x 794.97pt>
+File: cover_page.pdf Graphic file (type pdf)
+<use cover_page.pdf, page 1>
+Package pdftex.def Info: cover_page.pdf , page1 used on input line 56.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+File: cover_page.pdf Graphic file (type pdf)
+<use cover_page.pdf, page 1>
+Package pdftex.def Info: cover_page.pdf , page1 used on input line 56.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: cover_page.pdf Graphic file (type pdf)
+<use cover_page.pdf, page 1>
+Package pdftex.def Info: cover_page.pdf , page1 used on input line 56.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: cover_page.pdf Graphic file (type pdf)
+<use cover_page.pdf, page 1>
+Package pdftex.def Info: cover_page.pdf , page1 used on input line 56.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: cover_page.pdf Graphic file (type pdf)
+<use cover_page.pdf, page 1>
+Package pdftex.def Info: cover_page.pdf , page1 used on input line 56.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+ [1
+
+ </Users/chen/Desktop/school_work/hunter/spring_21/csci_350/project/MasterMind/latex/cover_page.pdf>]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 57.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 54.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 57.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
-
-{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Underfull \hbox (badness 10000) in paragraph at lines 86--87
-
- []
-
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 108--109
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 114--119
+) [2{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [3]
+Underfull \hbox (badness 10000) in paragraph at lines 89--90
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 125--126
+Underfull \hbox (badness 10000) in paragraph at lines 111--112
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--136
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 139--140
-
- []
-
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 143.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 143.
-
-Underfull \hbox (badness 10000) in paragraph at lines 145--150
+Underfull \hbox (badness 10000) in paragraph at lines 117--122
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 157--162
+Underfull \hbox (badness 10000) in paragraph at lines 128--129
 
  []
 
 
-Overfull \hbox (9.42917pt too wide) in paragraph at lines 169--174
-\OT1/cmr/m/n/10.95 I: [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 169--174
+Underfull \hbox (badness 10000) in paragraph at lines 134--139
 
  []
 
 
-Overfull \hbox (9.42917pt too wide) in paragraph at lines 181--186
-\OT1/cmr/m/n/10.95 I: [] 
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+
  []
 
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 146.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 146.
 
-Underfull \hbox (badness 10000) in paragraph at lines 181--186
+Underfull \hbox (badness 10000) in paragraph at lines 148--153
 
  []
 
 [6]
-Overfull \hbox (9.42917pt too wide) in paragraph at lines 195--200
+Underfull \hbox (badness 10000) in paragraph at lines 160--165
+
+ []
+
+
+Overfull \hbox (9.42917pt too wide) in paragraph at lines 172--177
 \OT1/cmr/m/n/10.95 I: [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 195--200
+Underfull \hbox (badness 10000) in paragraph at lines 172--177
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--208
+Overfull \hbox (9.42917pt too wide) in paragraph at lines 184--189
+\OT1/cmr/m/n/10.95 I: [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--189
 
  []
 
-[7] [8] (/Users/chen/Desktop/school_work/hunter/spring_21/csci_350/project/MasterMind/latex/fbi_project_report.aux)
+[7]
+Overfull \hbox (9.42917pt too wide) in paragraph at lines 198--203
+\OT1/cmr/m/n/10.95 I: [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 198--203
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
+
+ []
+
+[8] [9] (/Users/chen/Desktop/school_work/hunter/spring_21/csci_350/project/MasterMind/latex/fbi_project_report.aux)
 Package logreq Info: Writing requests to 'fbi_project_report.run.xml'.
 \openout1 = `fbi_project_report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 24610 strings out of 480608
- 477961 string characters out of 5903631
- 1306885 words of memory out of 5000000
- 40109 multiletter control sequences out of 15000+600000
+ 25343 strings out of 480608
+ 490333 string characters out of 5903631
+ 1320948 words of memory out of 5000000
+ 40818 multiletter control sequences out of 15000+600000
  543253 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,9n,61p,1226b,3913s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,18n,61p,1226b,3913s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on /Users/chen/Desktop/school_work/hunter/spring_21/csci_350/project/MasterMind/latex/fbi_project_report.pdf (8 pages, 163038 bytes).
+Output written on /Users/chen/Desktop/school_work/hunter/spring_21/csci_350/project/MasterMind/latex/fbi_project_report.pdf (9 pages, 249312 bytes).
 PDF statistics:
- 82 PDF objects out of 1000 (max. 8388607)
- 59 compressed objects within 1 object stream
+ 129 PDF objects out of 1000 (max. 8388607)
+ 81 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 
