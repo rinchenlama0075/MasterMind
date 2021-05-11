@@ -7,6 +7,7 @@ from operator import sub
 from scsa import *
 from player import *
 
+
 def letter_to_num(letter):
     """Converts letter to number based on position its in alphabet
 
@@ -18,6 +19,7 @@ def letter_to_num(letter):
     """
 
     return ord(letter) - 64
+
 
 def old_score(results):
     """Computes score using old score function for a tournament
@@ -36,7 +38,7 @@ class Round:
     """Representation for round of the game of Mastermind
     """
 
-    def __init__(self, board_length, colors, answer, scsa_name, guess_cutoff = 100, time_cutoff = 5):
+    def __init__(self, board_length, colors, answer, scsa_name, guess_cutoff=100, time_cutoff=5):
         """Constuctor for Round
 
         Args:
@@ -55,7 +57,7 @@ class Round:
         self.guesses = 0
         self.guess_cutoff = guess_cutoff
         self.time_cutoff = time_cutoff
-        self.time_buffer = 0.1 # Seconds
+        self.time_buffer = 0.1  # Seconds
         self.time_used = 0
 
     def valid_guess(self, guess):
@@ -76,7 +78,7 @@ class Round:
 
             if peg not in self.colors:
 
-                return False 
+                return False
 
         return True
 
@@ -139,7 +141,6 @@ class Round:
 
         return exact, other
 
-
     def respond_to_guess(self, guess):
         """Responds with correctness of player's guess
 
@@ -156,7 +157,7 @@ class Round:
             response = "win"
 
         elif self.valid_guess(guess):
-            
+
             exact, other = self.process_guess(guess)
 
             response = (exact, other, self.guesses)
@@ -178,17 +179,19 @@ class Round:
             int: Number of rounds until that result was achieved.
         """
 
-        response = (0,0,0)
+        response = (0, 0, 0)
 
         while self.guesses < self.guess_cutoff:
 
             start = time.time()
-            guess = player.make_guess(self.board_length, self.colors, self.scsa_name, response)
+            guess = player.make_guess(
+                self.board_length, self.colors, self.scsa_name, response)
             end = time.time()
 
             self.guesses += 1
 
-            duration = 0 #end - start removed the actual duration because if I debug, it counts the seconds while the code is paused so I cannot test with it.
+            # end - start removed the actual duration because if I debug, it counts the seconds while the code is paused so I cannot test with it.
+            duration = 0
 
             self.time_used += duration
 
@@ -215,7 +218,7 @@ class Mastermind:
     """Representation to play the game of Mastermind
     """
 
-    def __init__(self, board_length = 4, colors = [chr(i) for i in range(65,91)], guess_cutoff = 100, round_time_cutoff = 5, tournament_time_cutoff = 300):
+    def __init__(self, board_length=4, colors=[chr(i) for i in range(65, 91)], guess_cutoff=100, round_time_cutoff=5, tournament_time_cutoff=300):
         """Constructor for Mastermind
 
         Args:
@@ -233,6 +236,8 @@ class Mastermind:
         self.round_time_cutoff = round_time_cutoff
         self.tournament_time_cutoff = tournament_time_cutoff
         self.time_used = 0
+        self.total_time = 0
+        self.total_accumulative_guesses = 0
 
     def print_results(self, player, scsa_name, results, score, num_rounds):
         """Prints results for a tournament
@@ -252,7 +257,7 @@ class Mastermind:
         print("Results:", results)
         print("Score:", score)
 
-        return 
+        return
 
     def play_tournament(self, player, scsa, num_rounds):
         """Plays a tournament of Mastermind
@@ -262,30 +267,33 @@ class Mastermind:
             scsa (SCSA): SCSA used to generate secret codes for player to guess.
             num_rounds (int): Number of rounds to play Mastermind.
         """
-        
+
         results = {"win": 0, "loss": 0, "failure": 0}
 
         score = 0
 
-        for i in range(1,num_rounds+1):
+        for i in range(1, num_rounds+1):
 
             code = scsa.generate_codes(self.board_length, self.colors, 1)
 
-            round = Round(self.board_length, self.colors, code, scsa.name, self.guess_cutoff, self.round_time_cutoff)
+            round = Round(self.board_length, self.colors, code,
+                          scsa.name, self.guess_cutoff, self.round_time_cutoff)
 
             start = time.time()
             result, guesses = round.play_round(player)
             end = time.time()
 
-            duration = 0 #end - start removed the actual duration because if I debug, it counts the seconds while the code is paused so I cannot test with it.
-            
+            # end - start removed the actual duration because if I debug, it counts the seconds while the code is paused so I cannot test with it.
+            duration = 0
+
             self.time_used += duration
 
             if self.time_used > self.tournament_time_cutoff:
 
                 break
-            
-            #print("Round:", i, "Result:", result, "Guesses:", guesses)
+
+            # print("Round:", i, "Result:", result, "Guesses:", guesses)
+            self.total_accumulative_guesses += guesses
 
             results[result] += 1
 
@@ -300,9 +308,10 @@ class Mastermind:
                 break
 
         self.print_results(player, scsa.name, results, score, num_rounds)
+        print("avg no. of guess per round : ",
+              self.total_accumulative_guesses/100)
 
-        return 
-
+        return
 
     def practice_tournament(self, player, scsa_name, code_file):
         """Plays a tournament of Mastermind using pregenerated codes from file
@@ -327,14 +336,15 @@ class Mastermind:
 
             cur_round += 1
 
-            round = Round(self.board_length, self.colors, code, scsa_name, self.guess_cutoff, self.round_time_cutoff)
+            round = Round(self.board_length, self.colors, code,
+                          scsa_name, self.guess_cutoff, self.round_time_cutoff)
 
             start = time.time()
             result, guesses = round.play_round(player)
             end = time.time()
 
             duration = end - start
-            
+
             self.time_used += duration
 
             if self.time_used > self.tournament_time_cutoff:

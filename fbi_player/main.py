@@ -6,11 +6,13 @@ from scsa import *
 from player import *
 from fbi import FBI
 from mastermind import *
+from fbi_4 import fbi_4
+import time
 
 if len(sys.argv) != 6:
-     
+
     print("Usage: python3 main.py <board length> <num colors> <player name> <scsa name> <num rounds>")
-     
+
     sys.exit(1)
 
 board_length = int(sys.argv[1])
@@ -31,6 +33,9 @@ elif player_name == "Boring":
 elif player_name == "FBI":
 
     player = FBI()
+
+elif player_name == "fbi_4":
+    player = fbi_4()
 
 else:
 
@@ -75,8 +80,12 @@ else:
     print("Unrecognized SCSA.")
     sys.exit(1)
 
-colors = [chr(i) for i in range(65,91)][:num_colors]
+colors = [chr(i) for i in range(65, 91)][:num_colors]
 
 mastermind = Mastermind(board_length, colors)
 
+start = time.time()
 mastermind.play_tournament(player, scsa, num_rounds)
+end = time.time()
+
+print("time taken to complete the tournament ", end-start)

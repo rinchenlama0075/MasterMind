@@ -2,7 +2,7 @@ from itertools import permutations
 from player import Player
 
 
-class fbi(Player):
+class fbi_4(Player):
     """ Baseline 3 mastermind player
     B3: Make your first c – 1 guesses monochromatic: "all A’s," "all B’s,"… for all but one of the c colors. That
     will tell you how many pegs of each color are in the answer. (You don't need to actually guess the last color;
