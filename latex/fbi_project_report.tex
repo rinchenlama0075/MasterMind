@@ -80,8 +80,8 @@
     
     One change which our team hoped to make but could not implement in time, was a method called "Advance Fix". During our guesses, we maintain an array of inferences, which in each row contains a color and list of possible positions for that color. An insight that we had was that if multiple rows in inferences share the same letter, we can shrink down the number of positions of subsequent rows. Let's say we have two rows with the color 'A'. If the both A's have 0 as their first possible position, the second A will never be placed in position 0. If the first A belong in position 0 then the second A cannot. If the first A doesn't belong in position 0, then neither will the second A. This improvement would take place in the clean up function and would have to run multiple times. By running it multiple times, we can extend this shrinkage to 3+ rows of the same color.
 
-    \section{Constructing Inferences}
-    Due to the fact that our algorithm was based on Rao's algorithm, the process of constructing inferences will be similar to the ones described in the article\autocite{rao}. We will now go through an example to show how our algorithm constructs its inferences.
+    \section{Constructing Guesses}
+    Due to the fact that our algorithm was based on Rao's algorithm, the process of constructing guesses will be similar to the ones described in the article\autocite{rao}. We will now go through an example to show how our algorithm constructs its guesses.
 
     Let's assume are playing a 5 peg-7 color game where the secret code is \enquote{GCEED}. Let R be the response from the code maker, BF be the index in the inferences which is being fixed, BC be the color being considered, I be the inferences list, F be the fixed positions set, and G be the the guess of the codebreaker. The response contains three numbers in the following order, the number of bulls, the number of cows, and the number of guesses made so far.\\
 
